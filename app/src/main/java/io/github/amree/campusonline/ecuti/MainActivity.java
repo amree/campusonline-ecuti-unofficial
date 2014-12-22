@@ -21,9 +21,7 @@ import java.io.IOException;
 // public class MainActivity extends ActionBarActivity {
 public class MainActivity extends Activity {
 
-    ProgressDialog progressDialog;
-
-    Handler handler = new Handler(Looper.getMainLooper());
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,39 +54,55 @@ public class MainActivity extends Activity {
 
     public void doLogin(View view) {
 
-        String email = findViewById(R.id.editTextEmail).toString();
-        String password = findViewById(R.id.editTextPassword).toString();
+        EditText email = (EditText) findViewById(R.id.editTextEmail);
+        EditText password = (EditText) findViewById(R.id.editTextPassword);
 
-        progressDialog = ProgressDialog.show(MainActivity.this, "", "Loading...");
+        new CampusOnlineTask().execute(email.getText().toString(),
+                                       password.getText().toString());
 
-        new Thread() {
-            public void run() {
-                try {
+    }
 
-                    CampusOnline campusOnline = new CampusOnline("", "");
+    private class CampusOnlineTask extends AsyncTask<String, Void, Void> {
 
-                    campusOnline.gotoLogin();
-                    campusOnline.doLogin();
-                    campusOnline.gotoCuti();
-                    campusOnline.gotoSahCuti();
-                    campusOnline.setApplications();
+        ProgressDialog progressDialog;
 
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-                            startActivity(intent);
-                        }
-                    });
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
 
-                } catch (Exception e) {
-                    Log.e("tag", e.getMessage());
-                }
+            progressDialog = ProgressDialog.show(MainActivity.this, "", "Loading...");
+        }
 
-                progressDialog.dismiss();
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            progressDialog.dismiss();
+        }
+
+        @Override
+        protected Void doInBackground(String... params) {
+
+            CampusOnline campusOnline = new CampusOnline(params[0], params[1]);
+
+            try {
+
+                campusOnline.gotoLogin();
+                campusOnline.doLogin();
+                campusOnline.gotoCuti();
+                campusOnline.gotoSahCuti();
+                campusOnline.setApplications();
+
+                Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+                startActivity(intent);
+
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        }.start();
 
+            return null;
+
+        }
     }
 }
 
