@@ -22,6 +22,10 @@
             android:name=".SecondActivity"
             android:label="@string/title_activity_second" >
         </activity>
+        <activity
+            android:name=".StaffApplication"
+            android:label="@string/title_activity_staff_application" >
+        </activity>
     </application>
 
 </manifest>

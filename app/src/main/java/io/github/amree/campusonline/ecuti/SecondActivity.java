@@ -1,15 +1,22 @@
 package io.github.amree.campusonline.ecuti;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
 
 public class SecondActivity extends ActionBarActivity {
+
+    private static final String TAG = "SecondActivity";
+    public static final String APPROVE_URL= "APPROVE_URL";
 
     private ArrayList<DataApplication> data;
     private CustomAdapter adapter;
@@ -28,10 +35,20 @@ public class SecondActivity extends ActionBarActivity {
         }
 
         adapter = new CustomAdapter(this, data);
-        ListView listView = (ListView) findViewById(R.id.listView);
+        final ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(adapter);
-    }
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent intent = new Intent(SecondActivity.this, StaffApplication.class);
+                intent.putExtra(APPROVE_URL, data.get(position).url);
+                startActivity(intent);
+            }
+        });
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
