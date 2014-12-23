@@ -16,7 +16,7 @@ public class CampusOnline {
     String password;
 
     Map<String, String> cookies;
-    public static Map<String, String> applications;
+    public static String[][] applications;
 
     Document doc;
     Connection.Response res;
@@ -24,6 +24,7 @@ public class CampusOnline {
     String coMainURL        = "http://campusonline.usm.my/smus/employee_i.asp?m=1&c=1";
     String campusOnlineURL  = "https://campusonline.usm.my";
     String idMainURL        = "https://id.usm.my/";
+    String cutiURL          = "http://e-cuti.usm.my/ecuti_v2/";
     String realCutiURL      = "http://e-cuti.usm.my/ecuti_v2/default.asp";
     String sahCutiURL       = "http://e-cuti.usm.my/ecuti_v2/default.asp?sec=P&fn=1";
     String mainCutiURL      = "";
@@ -36,7 +37,6 @@ public class CampusOnline {
         this.password = password;
 
         this.cookies = new HashMap();
-        this.applications = new HashMap();
     }
 
     public void gotoLogin() throws IOException {
@@ -223,16 +223,74 @@ public class CampusOnline {
     }
 
     public void setApplications() {
-        Elements elements = this.doc.select("table.contacts a");
 
-        for (Element element: elements) {
-            this.applications.put(element.text(), element.attr("href"));
+        // Remember to skip the first row (first row == header)
+        //
+        // 0 = Status
+        // 1 = URL
+        // 2 = Name
+        // 3 = Type
+        // 4 = Date and Time
+        Elements trElements = this.doc.select("table.contacts tr");
+        CampusOnline.applications = new String[trElements.size() - 1][5];
+
+        for (int x = 1; x < trElements.size(); x++) {
+            System.out.println(x + "-----");
+
+            Elements tdElements = trElements.get(x).select("td");
+            for (int y = 0; y < tdElements.size(); y++) {
+
+                switch (y) {
+                    case 1:
+                        // Status
+                        String imageFile = tdElements.get(y).select("img").attr("src");
+
+                        String status;
+                        switch (imageFile) {
+                            case "img/0.gif":
+                                status = "KERANI";
+                                break;
+                            case "img/1.gif":
+                                status = "PENYELIA";
+                                break;
+                            case "img/4.gif":
+                                status = "SEMAKAN";
+                                break;
+                            default:
+                                status = "LAIN-LAIN";
+                        }
+
+                        CampusOnline.applications[x - 1][0] = status;
+
+                        break;
+                    case 2:
+                        // Link
+                        CampusOnline.applications[x - 1][1] = this.cutiURL + tdElements.get(y).select("a").attr("href");
+                        // Nama
+                        CampusOnline.applications[x - 1][2] = tdElements.get(y).text();
+                        break;
+                    case 3:
+                        // Jenis
+                        CampusOnline.applications[x - 1][3] = tdElements.get(y).text();
+                        break;
+                    case 4:
+                        // Tarikh dan masa
+                        CampusOnline.applications[x - 1][4] = tdElements.get(y).text();
+                        break;
+                }
+            }
         }
 
-        System.out.println(this.applications);
+        for (int i = 0; i < CampusOnline.applications.length; i++) {
+            System.out.println(i + "," + 0 + " -- " + CampusOnline.applications[i][0]);
+            System.out.println(i + "," + 1 + " -- " + CampusOnline.applications[i][1]);
+            System.out.println(i + "," + 2 + " -- " + CampusOnline.applications[i][2]);
+            System.out.println(i + "," + 3 + " -- " + CampusOnline.applications[i][3]);
+            System.out.println(i + "," + 4 + " -- " + CampusOnline.applications[i][4]);
+        }
     }
 
-    public Map<String, String> getApplications() {
-        return this.applications;
+    public String[][] getApplications() {
+        return CampusOnline.applications;
     }
 }

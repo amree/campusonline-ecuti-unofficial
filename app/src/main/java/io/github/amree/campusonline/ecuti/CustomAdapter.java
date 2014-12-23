@@ -46,14 +46,14 @@ public class CustomAdapter extends BaseAdapter {
         }
         // Extract the desired views
         TextView nameText = (TextView) view.findViewById(R.id.nameValue);
-        TextView phoneText = (TextView) view.findViewById(R.id.phoneValue);
+        TextView dateTimeText = (TextView) view.findViewById(R.id.dateTimeValue);
 
         // Get the data item
         DataApplication item = data.get(position);
 
         // Display the data item's properties
         nameText.setText(item.name);
-        phoneText.setText("1/2/2015 - 2/2/2015 (2 Hari)");
+        dateTimeText.setText(item.dateTime);
 
         return view;
     }

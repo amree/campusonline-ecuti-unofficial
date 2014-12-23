@@ -23,12 +23,9 @@ public class SecondActivity extends ActionBarActivity {
 
         this.data = new ArrayList<DataApplication>();
 
-        for (String key : CampusOnline.applications.keySet()) {
-//            String value = CampusOnline.applications.get(key);
-
-            this.data.add(new DataApplication(key));
+        for (int i = 0; i < CampusOnline.applications.length; i++) {
+            this.data.add(new DataApplication(CampusOnline.applications[i]));
         }
-
 
         adapter = new CustomAdapter(this, data);
         ListView listView = (ListView) findViewById(R.id.listView);
