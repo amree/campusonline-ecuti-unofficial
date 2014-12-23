@@ -30,7 +30,6 @@
         android:ems="10"
         android:layout_below="@+id/editTextEmail"
         android:layout_centerHorizontal="true"
-        android:text="password"
         android:textColor="#ffffff"
         android:singleLine="true"
         android:textColorHint="#9C72C6" />
