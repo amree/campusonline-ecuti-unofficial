@@ -1,11 +1,18 @@
 package io.github.amree.campusonline.ecuti;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import org.jsoup.helper.StringUtil;
+
+import java.io.IOException;
 
 
 public class StaffApplication extends ActionBarActivity {
@@ -22,6 +29,8 @@ public class StaffApplication extends ActionBarActivity {
         Intent intent = getIntent();
         String message = intent.getStringExtra(SecondActivity.APPROVE_URL);
         Log.d(TAG, message);
+
+        new CampusOnlineTask().execute(message);
     }
 
 
@@ -45,5 +54,60 @@ public class StaffApplication extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private class CampusOnlineTask extends AsyncTask<String, Void, Void> {
+
+        ProgressDialog progressDialog;
+        DataApplication dataApp;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            progressDialog = ProgressDialog.show(StaffApplication.this, "", "Loading...");
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            progressDialog.dismiss();
+
+            TextView nama = (TextView) findViewById(R.id.textViewNamaVal);
+            nama.setText(dataApp.getNama());
+
+            TextView jenisCuti = (TextView) findViewById(R.id.textViewJenisCutiVal);
+            jenisCuti.setText(dataApp.getJenis());
+
+            String tarikhCutiVal = "";
+
+            tarikhCutiVal = dataApp.getTarikhDari() + " - " + dataApp.getTarikhHingga();
+
+            TextView tarikhCuti = (TextView) findViewById(R.id.textViewTarikhCutiVal);
+            tarikhCuti.setText(tarikhCutiVal);
+
+            TextView tempohCuti = (TextView) findViewById(R.id.textViewTempohCutiVal);
+            tempohCuti.setText(dataApp.getJumlahHari() + " hari");
+
+            TextView sebabCuti = (TextView) findViewById(R.id.textViewSebabCutiVal);
+            sebabCuti.setText(dataApp.getSebabCuti());
+        }
+
+        @Override
+        protected Void doInBackground(String... params) {
+
+            CampusOnline co = new CampusOnline();
+
+            try {
+
+                this.dataApp = co.openPermohonananSah(params[0]);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
     }
 }

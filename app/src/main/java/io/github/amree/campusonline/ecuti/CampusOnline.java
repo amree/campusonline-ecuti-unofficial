@@ -15,7 +15,7 @@ public class CampusOnline {
     String email;
     String password;
 
-    Map<String, String> cookies;
+    public static Map<String, String> cookies;
     public static String[][] applications;
 
     Document doc;
@@ -36,7 +36,10 @@ public class CampusOnline {
         this.email = email;
         this.password = password;
 
-        this.cookies = new HashMap();
+        CampusOnline.cookies = new HashMap();
+    }
+
+    public CampusOnline() {
     }
 
     public void gotoLogin() throws IOException {
@@ -226,11 +229,6 @@ public class CampusOnline {
 
         // Remember to skip the first row (first row == header)
         //
-        // 0 = Status
-        // 1 = URL
-        // 2 = Name
-        // 3 = Type
-        // 4 = Date and Time
         Elements trElements = this.doc.select("table.contacts tr");
         CampusOnline.applications = new String[trElements.size() - 1][5];
 
@@ -292,5 +290,64 @@ public class CampusOnline {
 
     public String[][] getApplications() {
         return CampusOnline.applications;
+    }
+
+    public DataApplication openPermohonananSah(String url) throws IOException {
+        // Buka page permohonan individu
+        this.res = Jsoup.connect(url)
+                .followRedirects(false)
+                .cookies(cookies)
+                .timeout(0)
+                .method(Method.GET)
+                .execute();
+
+        System.out.println("Current URL: " + this.res.url());
+
+        setCookies();
+
+        this.doc = this.res.parse();
+
+        String namaSelect = "body > div > table > tbody > tr:nth-child(2) >"
+                + " td > table > tbody > tr > td:nth-child(2) > table > tbody >"
+                + " tr:nth-child(2) > td > table > tbody > tr >"
+                + " td:nth-child(2) > table > tbody > tr:nth-child(2) > td >"
+                + " table > tbody > tr:nth-child(1) > td > table:nth-child(9) >"
+                + " tbody > tr > td > table > tbody > tr:nth-child(2) > td >"
+                + " table > tbody > tr:nth-child(1) > td:nth-child(2)";
+
+        String infoCutiSelector = "body > div > table > tbody >"
+                + " tr:nth-child(2) > td > table > tbody > tr >"
+                + " td:nth-child(2) > table > tbody > tr:nth-child(2) > td >"
+                + " table > tbody > tr > td:nth-child(2) > table > tbody >"
+                + " tr:nth-child(2) > td > table > tbody > tr:nth-child(1) >"
+                + " td > table:nth-child(10) > tbody > tr:nth-child(1) > td >"
+                + " table > tbody > tr:nth-child(2) > td > table > tbody";
+
+        String jenisCutiSelect    = infoCutiSelector + " > tr:nth-child(1) > td:nth-child(2)";
+        String tarikhDariSelect   = infoCutiSelector + " > tr:nth-child(2) > td:nth-child(2) >" +
+                " table > tbody > tr:nth-child(2) > td:nth-child(1)";
+        String tarikhHinggaSelect = infoCutiSelector + " > tr:nth-child(2) > td:nth-child(2) >" +
+                " table > tbody > tr:nth-child(2) > td:nth-child(2)";
+        String jumlahHariSelect   = infoCutiSelector + " > tr:nth-child(2) > td:nth-child(2) >" +
+                " table > tbody > tr:nth-child(2) > td:nth-child(3)";
+        String sebabCutiSelect    = infoCutiSelector + " > tr:nth-child(8) > td:nth-child(2)";
+
+        String nama = this.doc.select(namaSelect).text();
+        String jenisCuti = this.doc.select(jenisCutiSelect).text();
+        String tarikhDari = this.doc.select(tarikhDariSelect).text();
+        String tarikhHingga = this.doc.select(tarikhHinggaSelect).text();
+        String jumlahHari = this.doc.select(jumlahHariSelect).text();
+        String sebabCuti = this.doc.select(sebabCutiSelect).text();
+
+        DataApplication dataApplication = new DataApplication();
+
+        dataApplication.setNama(nama);
+        dataApplication.setJenis(jenisCuti);
+        dataApplication.setTarikhDari(tarikhDari);
+        dataApplication.setTarikhHingga(tarikhHingga);
+        dataApplication.setJumlahHari(jumlahHari);
+        dataApplication.setSebabCuti(sebabCuti);
+
+        return dataApplication;
     }
 }
