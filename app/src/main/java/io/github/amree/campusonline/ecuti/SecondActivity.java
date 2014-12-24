@@ -31,7 +31,16 @@ public class SecondActivity extends ActionBarActivity {
         this.data = new ArrayList<DataApplication>();
 
         for (int i = 0; i < CampusOnline.applications.length; i++) {
-            this.data.add(new DataApplication(CampusOnline.applications[i]));
+
+            DataApplication dataApplication = new DataApplication();
+
+            dataApplication.setStatus(CampusOnline.applications[i][0]);
+            dataApplication.setUrl(CampusOnline.applications[i][1]);
+            dataApplication.setNama(CampusOnline.applications[i][2]);
+            dataApplication.setJenis(CampusOnline.applications[i][3]);
+            dataApplication.setMasaMinta(CampusOnline.applications[i][4]);
+
+            this.data.add(dataApplication);
         }
 
         adapter = new CustomAdapter(this, data);
