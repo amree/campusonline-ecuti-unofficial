@@ -12,8 +12,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import org.jsoup.helper.StringUtil;
-
 import java.io.IOException;
 
 
@@ -33,7 +31,7 @@ public class StaffApplication extends ActionBarActivity {
         String message = intent.getStringExtra(SecondActivity.APPROVE_URL);
         Log.d(TAG, message);
 
-        new CampusOnlineTask().execute(message);
+        new LoadPermohonanTask().execute(message);
     }
 
 
@@ -130,7 +128,7 @@ public class StaffApplication extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private class CampusOnlineTask extends AsyncTask<String, Void, Void> {
+    private class LoadPermohonanTask extends AsyncTask<String, Void, Void> {
 
         ProgressDialog progressDialog;
         DataApplication dataApp;
