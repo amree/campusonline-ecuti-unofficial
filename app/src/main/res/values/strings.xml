@@ -6,5 +6,8 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_second">SecondActivity</string>
     <string name="title_activity_staff_application">StaffApplication</string>
+    <string name="action_approve">Lulus</string>
+    <string name="action_return">Hantar Kembali</string>
+    <string name="action_reject">Tidak Lulus</string>
 
 </resources>

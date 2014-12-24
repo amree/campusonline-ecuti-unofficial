@@ -1,6 +1,8 @@
 package io.github.amree.campusonline.ecuti;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
@@ -50,7 +52,74 @@ public class StaffApplication extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+
             return true;
+
+        } else  if (id == R.id.action_approve) {
+
+            AlertDialog.Builder dialogConfirmation = new AlertDialog.Builder(StaffApplication.this);
+            dialogConfirmation.setMessage("Adakah anda pasti anda ingin meluluskan permohonan ini?");
+            dialogConfirmation.setCancelable(true);
+            dialogConfirmation.setPositiveButton("Yes",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            dialogConfirmation.setNegativeButton("No",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+            AlertDialog confirm = dialogConfirmation.create();
+            confirm.show();
+
+            return true;
+
+        } else if (id == R.id.action_reject) {
+
+            AlertDialog.Builder dialogConfirmation = new AlertDialog.Builder(StaffApplication.this);
+            dialogConfirmation.setMessage("Adakah anda pasti anda ingin menolak permohonan ini?");
+            dialogConfirmation.setCancelable(true);
+            dialogConfirmation.setPositiveButton("Yes",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            dialogConfirmation.setNegativeButton("No",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+            AlertDialog confirm = dialogConfirmation.create();
+            confirm.show();
+
+        } else if (id == R.id.action_return) {
+
+            AlertDialog.Builder dialogConfirmation = new AlertDialog.Builder(StaffApplication.this);
+            dialogConfirmation.setMessage("Adakah anda pasti anda ingin kembalikan permohonan ini?");
+            dialogConfirmation.setCancelable(true);
+            dialogConfirmation.setPositiveButton("Yes",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            dialogConfirmation.setNegativeButton("No",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+            AlertDialog confirm = dialogConfirmation.create();
+            confirm.show();
+
         }
 
         return super.onOptionsItemSelected(item);
