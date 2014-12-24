@@ -355,4 +355,40 @@ public class CampusOnline {
         gotoSahCuti();
         setApplications();
     }
+
+    public boolean doSahPermohonan(String url) throws IOException {
+        openPermohonananSah(url);
+
+        String idCuti  = this.doc.select("input[name=IDCuti]").val();
+        String rLulus  = this.doc.select("input[name=R_Lulus]").val();
+        String sUlasan = this.doc.select("input[name=S_Ulasan]").val();
+        String b1      = "SAHKAN";
+        String mn      = "";
+
+        this.res = Jsoup.connect(cutiURL + "semakan/sv_proses_cuti_v2.asp")
+                        .followRedirects(false)
+                        .data("IDCuti", idCuti)
+                        .data("R_Lulus", rLulus)
+                        .data("S_Ulasan", sUlasan)
+                        .data("B1", b1)
+                        .data("mn", mn)
+                        .cookies(cookies)
+                        .timeout(0)
+                        .method(Method.POST)
+                        .execute();
+
+        System.out.println("Current URL: " + this.res.url());
+
+        setCookies();
+
+        this.doc = this.res.parse();
+
+        String urlRedirect = doc.select("a[href]").get(0).attr("abs:href");
+
+        if (urlRedirect.equals("../default.asp?sec=K&fn=2&mn=")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

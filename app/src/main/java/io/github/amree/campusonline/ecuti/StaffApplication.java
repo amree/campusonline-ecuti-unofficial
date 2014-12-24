@@ -20,6 +20,7 @@ public class StaffApplication extends ActionBarActivity {
     private static final String TAG = "StaffApplication";
     public static final String FORCE_RELOAD = "FORCE_RELOAD";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +34,6 @@ public class StaffApplication extends ActionBarActivity {
 
         new LoadPermohonanTask().execute(message);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -64,9 +64,10 @@ public class StaffApplication extends ActionBarActivity {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.cancel();
 
-                            Intent intent = new Intent(StaffApplication.this, SecondActivity.class);
-                            intent.putExtra(FORCE_RELOAD, "true");
-                            startActivity(intent);
+                            Intent intent = getIntent();
+                            String url = intent.getStringExtra(SecondActivity.APPROVE_URL);
+
+                            new lulusPermohonanTask().execute(url);
                         }
                     });
             dialogConfirmation.setNegativeButton("No",
@@ -126,6 +127,44 @@ public class StaffApplication extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private class lulusPermohonanTask extends AsyncTask<String, Void, Void> {
+
+        ProgressDialog progressDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            progressDialog = ProgressDialog.show(StaffApplication.this, "", "Submitting...");
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            progressDialog.dismiss();
+        }
+
+        @Override
+        protected Void doInBackground(String... params) {
+            CampusOnline co = new CampusOnline();
+
+            try {
+
+                co.doSahPermohonan(params[0]);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            Intent intent = new Intent(StaffApplication.this, SecondActivity.class);
+            intent.putExtra(FORCE_RELOAD, "true");
+            startActivity(intent);
+
+            return null;
+        }
     }
 
     private class LoadPermohonanTask extends AsyncTask<String, Void, Void> {
