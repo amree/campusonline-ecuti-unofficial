@@ -1,7 +1,9 @@
 package io.github.amree.campusonline.ecuti;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Handler;
@@ -66,6 +68,8 @@ public class MainActivity extends Activity {
 
         ProgressDialog progressDialog;
 
+        private Exception exception = null;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -78,6 +82,27 @@ public class MainActivity extends Activity {
             super.onPostExecute(aVoid);
 
             progressDialog.dismiss();
+
+            if (this.exception != null) {
+
+                AlertDialog msgDialog = new AlertDialog.Builder(MainActivity.this).create();
+                msgDialog.setTitle("Ralat");
+
+                if (this.exception.getClass() == LoginException.class) {
+                    msgDialog.setMessage(this.exception.getMessage());
+                } else {
+                    msgDialog.setMessage("Terdapat masalah. Sila cuba sekali lagi.");
+                }
+
+                msgDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+
+                msgDialog.show();
+            }
         }
 
         @Override
@@ -97,7 +122,12 @@ public class MainActivity extends Activity {
                 startActivity(intent);
 
             } catch (IOException e) {
-                e.printStackTrace();
+
+                this.exception = e;
+
+            } catch (LoginException e) {
+
+                this.exception = e;
             }
 
             return null;

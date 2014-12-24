@@ -130,10 +130,18 @@ public class CampusOnline {
         this.doc = this.res.parse();
     }
 
-    public void gotoCuti() throws IOException {
+    public void gotoCuti() throws IOException, LoginException {
 
         // We're in! Get the e-Cuti URL
-        Element link = this.doc.select("a[href*=/ecuti_v2/]").get(0);
+        Element link;
+        Elements links = this.doc.select("a[href*=/ecuti_v2/]");
+
+        if (links.size() > 0) {
+            link = this.doc.select("a[href*=/ecuti_v2/]").get(0);
+        } else {
+            throw new LoginException("Salah email atau kata laluan");
+        }
+
 
         this.mainCutiURL = link.attr("href");
 
