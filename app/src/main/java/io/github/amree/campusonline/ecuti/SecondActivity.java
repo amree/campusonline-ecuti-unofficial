@@ -1,6 +1,8 @@
 package io.github.amree.campusonline.ecuti;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -27,6 +30,43 @@ public class SecondActivity extends ActionBarActivity {
         setContentView(R.layout.activity_second);
 
         setTitle("Pengesahan Cuti");
+
+        // For reload if have to
+        Intent intent = getIntent();
+        String message = intent.getStringExtra(StaffApplication.FORCE_RELOAD);
+
+        if ((message != null) && (message.equals("true"))) {
+
+            new CampusOnlineTask().execute();
+
+        } else {
+            loadSenaraiPermohonan();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_second, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void loadSenaraiPermohonan() {
 
         this.data = new ArrayList<DataApplication>();
 
@@ -59,25 +99,40 @@ public class SecondActivity extends ActionBarActivity {
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_second, menu);
-        return true;
-    }
+    private class CampusOnlineTask extends AsyncTask<String, Void, Void> {
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        ProgressDialog progressDialog;
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            progressDialog = ProgressDialog.show(SecondActivity.this, "", "Loading...");
         }
 
-        return super.onOptionsItemSelected(item);
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            progressDialog.dismiss();
+
+            loadSenaraiPermohonan();
+        }
+
+        @Override
+        protected Void doInBackground(String... params) {
+
+            try {
+
+                CampusOnline co = new CampusOnline();
+                co.openSenaraiPermohonan();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+
+        }
     }
 }

@@ -350,4 +350,9 @@ public class CampusOnline {
 
         return dataApplication;
     }
+
+    public void openSenaraiPermohonan() throws IOException {
+        gotoSahCuti();
+        setApplications();
+    }
 }

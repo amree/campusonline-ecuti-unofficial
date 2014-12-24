@@ -20,6 +20,7 @@ import java.io.IOException;
 public class StaffApplication extends ActionBarActivity {
 
     private static final String TAG = "StaffApplication";
+    public static final String FORCE_RELOAD = "FORCE_RELOAD";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +65,10 @@ public class StaffApplication extends ActionBarActivity {
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.cancel();
+
+                            Intent intent = new Intent(StaffApplication.this, SecondActivity.class);
+                            intent.putExtra(FORCE_RELOAD, "true");
+                            startActivity(intent);
                         }
                     });
             dialogConfirmation.setNegativeButton("No",
