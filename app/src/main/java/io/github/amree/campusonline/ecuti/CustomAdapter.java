@@ -52,8 +52,8 @@ public class CustomAdapter extends BaseAdapter {
         DataApplication item = data.get(position);
 
         // Display the data item's properties
-        nameText.setText(item.name);
-        dateTimeText.setText(item.dateTime);
+        nameText.setText(item.nama);
+        dateTimeText.setText(item.masaMinta);
 
         return view;
     }
