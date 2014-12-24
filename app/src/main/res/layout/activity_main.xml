@@ -52,4 +52,13 @@
         android:layout_alignRight="@+id/editTextPassword"
         android:layout_alignEnd="@+id/editTextPassword" />
 
+    <ImageView
+        android:layout_width="128px"
+        android:layout_height="128px"
+        android:id="@+id/imageView"
+        android:src="@drawable/logo"
+        android:layout_marginBottom="37dp"
+        android:layout_above="@+id/editTextEmail"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>
