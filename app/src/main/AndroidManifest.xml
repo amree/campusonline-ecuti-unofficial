@@ -24,7 +24,7 @@
             android:label="@string/title_activity_second" >
         </activity>
         <activity
-            android:name=".StaffApplication"
+            android:name=".StaffApplicationActivity"
             android:label="@string/title_activity_staff_application" >
         </activity>
     </application>

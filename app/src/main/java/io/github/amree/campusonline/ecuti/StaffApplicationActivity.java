@@ -15,9 +15,9 @@ import android.widget.TextView;
 import java.io.IOException;
 
 
-public class StaffApplication extends ActionBarActivity {
+public class StaffApplicationActivity extends ActionBarActivity {
 
-    private static final String TAG = "StaffApplication";
+    private static final String TAG = "StaffApplicationActivity";
     public static final String FORCE_RELOAD = "FORCE_RELOAD";
 
 
@@ -56,7 +56,7 @@ public class StaffApplication extends ActionBarActivity {
 
         } else  if (id == R.id.action_approve) {
 
-            AlertDialog.Builder dialogConfirmation = new AlertDialog.Builder(StaffApplication.this);
+            AlertDialog.Builder dialogConfirmation = new AlertDialog.Builder(StaffApplicationActivity.this);
             dialogConfirmation.setMessage("Adakah anda pasti anda ingin meluluskan permohonan ini?");
             dialogConfirmation.setCancelable(true);
             dialogConfirmation.setPositiveButton("Yes",
@@ -84,7 +84,7 @@ public class StaffApplication extends ActionBarActivity {
 
         } else if (id == R.id.action_reject) {
 
-            AlertDialog.Builder dialogConfirmation = new AlertDialog.Builder(StaffApplication.this);
+            AlertDialog.Builder dialogConfirmation = new AlertDialog.Builder(StaffApplicationActivity.this);
             dialogConfirmation.setMessage("Adakah anda pasti anda ingin menolak permohonan ini?");
             dialogConfirmation.setCancelable(true);
             dialogConfirmation.setPositiveButton("Yes",
@@ -105,7 +105,7 @@ public class StaffApplication extends ActionBarActivity {
 
         } else if (id == R.id.action_return) {
 
-            AlertDialog.Builder dialogConfirmation = new AlertDialog.Builder(StaffApplication.this);
+            AlertDialog.Builder dialogConfirmation = new AlertDialog.Builder(StaffApplicationActivity.this);
             dialogConfirmation.setMessage("Adakah anda pasti anda ingin kembalikan permohonan ini?");
             dialogConfirmation.setCancelable(true);
             dialogConfirmation.setPositiveButton("Yes",
@@ -137,7 +137,7 @@ public class StaffApplication extends ActionBarActivity {
         protected void onPreExecute() {
             super.onPreExecute();
 
-            progressDialog = ProgressDialog.show(StaffApplication.this, "", "Submitting...");
+            progressDialog = ProgressDialog.show(StaffApplicationActivity.this, "", "Submitting...");
         }
 
         @Override
@@ -159,7 +159,7 @@ public class StaffApplication extends ActionBarActivity {
                 e.printStackTrace();
             }
 
-            Intent intent = new Intent(StaffApplication.this, ListStaffApplicationActivity.class);
+            Intent intent = new Intent(StaffApplicationActivity.this, ListStaffApplicationActivity.class);
             intent.putExtra(FORCE_RELOAD, "true");
             startActivity(intent);
 
@@ -176,7 +176,7 @@ public class StaffApplication extends ActionBarActivity {
         protected void onPreExecute() {
             super.onPreExecute();
 
-            progressDialog = ProgressDialog.show(StaffApplication.this, "", "Loading...");
+            progressDialog = ProgressDialog.show(StaffApplicationActivity.this, "", "Loading...");
         }
 
         @Override

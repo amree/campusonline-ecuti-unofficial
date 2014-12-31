@@ -32,7 +32,7 @@ public class ListStaffApplicationActivity extends ActionBarActivity {
 
         // For reload if have to
         Intent intent = getIntent();
-        String message = intent.getStringExtra(StaffApplication.FORCE_RELOAD);
+        String message = intent.getStringExtra(StaffApplicationActivity.FORCE_RELOAD);
 
         if ((message != null) && (message.equals("true"))) {
 
@@ -91,7 +91,7 @@ public class ListStaffApplicationActivity extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Intent intent = new Intent(ListStaffApplicationActivity.this, StaffApplication.class);
+                Intent intent = new Intent(ListStaffApplicationActivity.this, StaffApplicationActivity.class);
                 intent.putExtra(APPROVE_URL, data.get(position).url);
                 startActivity(intent);
             }
