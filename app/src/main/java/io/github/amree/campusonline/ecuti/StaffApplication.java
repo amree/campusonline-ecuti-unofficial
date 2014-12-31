@@ -29,7 +29,7 @@ public class StaffApplication extends ActionBarActivity {
         setTitle("Permohonan");
 
         Intent intent = getIntent();
-        String message = intent.getStringExtra(SecondActivity.APPROVE_URL);
+        String message = intent.getStringExtra(ListStaffApplicationActivity.APPROVE_URL);
         Log.d(TAG, message);
 
         new LoadPermohonanTask().execute(message);
@@ -65,7 +65,7 @@ public class StaffApplication extends ActionBarActivity {
                             dialog.cancel();
 
                             Intent intent = getIntent();
-                            String url = intent.getStringExtra(SecondActivity.APPROVE_URL);
+                            String url = intent.getStringExtra(ListStaffApplicationActivity.APPROVE_URL);
 
                             new lulusPermohonanTask().execute(url);
                         }
@@ -159,7 +159,7 @@ public class StaffApplication extends ActionBarActivity {
                 e.printStackTrace();
             }
 
-            Intent intent = new Intent(StaffApplication.this, SecondActivity.class);
+            Intent intent = new Intent(StaffApplication.this, ListStaffApplicationActivity.class);
             intent.putExtra(FORCE_RELOAD, "true");
             startActivity(intent);
 

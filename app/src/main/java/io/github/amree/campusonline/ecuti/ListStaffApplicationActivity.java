@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,9 +15,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 
-public class SecondActivity extends ActionBarActivity {
+public class ListStaffApplicationActivity extends ActionBarActivity {
 
-    private static final String TAG = "SecondActivity";
+    private static final String TAG = "ListStaffApplicationActivity";
     public static final String APPROVE_URL= "APPROVE_URL";
 
     private ArrayList<DataApplication> data;
@@ -27,7 +26,7 @@ public class SecondActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_second);
+        setContentView(R.layout.activity_application_staff_list);
 
         setTitle("Pengesahan Cuti");
 
@@ -92,7 +91,7 @@ public class SecondActivity extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Intent intent = new Intent(SecondActivity.this, StaffApplication.class);
+                Intent intent = new Intent(ListStaffApplicationActivity.this, StaffApplication.class);
                 intent.putExtra(APPROVE_URL, data.get(position).url);
                 startActivity(intent);
             }
@@ -107,7 +106,7 @@ public class SecondActivity extends ActionBarActivity {
         protected void onPreExecute() {
             super.onPreExecute();
 
-            progressDialog = ProgressDialog.show(SecondActivity.this, "", "Loading...");
+            progressDialog = ProgressDialog.show(ListStaffApplicationActivity.this, "", "Loading...");
         }
 
         @Override

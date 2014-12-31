@@ -113,7 +113,7 @@ public class LoginActivity extends Activity {
                 campusOnline.gotoSahCuti();
                 campusOnline.setApplications();
 
-                Intent intent = new Intent(LoginActivity.this, SecondActivity.class);
+                Intent intent = new Intent(LoginActivity.this, ListStaffApplicationActivity.class);
                 startActivity(intent);
 
             } catch (IOException e) {
