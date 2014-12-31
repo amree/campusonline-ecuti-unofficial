@@ -6,12 +6,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,14 +16,14 @@ import java.io.IOException;
 
 
 // public class MainActivity extends ActionBarActivity {
-public class MainActivity extends Activity {
+public class LoginActivity extends Activity {
 
     private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
     }
 
 
@@ -74,7 +69,7 @@ public class MainActivity extends Activity {
         protected void onPreExecute() {
             super.onPreExecute();
 
-            progressDialog = ProgressDialog.show(MainActivity.this, "", "Loading...");
+            progressDialog = ProgressDialog.show(LoginActivity.this, "", "Loading...");
         }
 
         @Override
@@ -85,7 +80,7 @@ public class MainActivity extends Activity {
 
             if (this.exception != null) {
 
-                AlertDialog msgDialog = new AlertDialog.Builder(MainActivity.this).create();
+                AlertDialog msgDialog = new AlertDialog.Builder(LoginActivity.this).create();
                 msgDialog.setTitle("Ralat");
 
                 if (this.exception.getClass() == LoginException.class) {
@@ -118,7 +113,7 @@ public class MainActivity extends Activity {
                 campusOnline.gotoSahCuti();
                 campusOnline.setApplications();
 
-                Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+                Intent intent = new Intent(LoginActivity.this, SecondActivity.class);
                 startActivity(intent);
 
             } catch (IOException e) {
