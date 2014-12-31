@@ -39,7 +39,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Log In"
+        android:text="@string/login"
         android:textAllCaps="false"
         android:id="@+id/button"
         android:onClick="doLogin"
