@@ -1,6 +1,6 @@
 # README
 
-Memandangkan aplikasi CampusOnline dari Universiti Sains Malaysia tidak mempunyai versi Android, saya mengambil inisiatif untuk membangunkannya sebagai latihan pengaturcaraan Android saya.
+Memandangkan aplikasi eCuti CampusOnline dari Universiti Sains Malaysia tidak mempunyai versi Android, saya mengambil inisiatif untuk membangunkannya sebagai latihan pengaturcaraan Android.
 
 Aplikasi ini tidak mempunyai akses secara terus kepada pangkalan data CampusOnline ataupun akses kepada Application Programming Interface (API). Ia menggunakan teknik *scraping* untuk mendapatkan data. Selain daripada itu, aplikasi ini jugak tidak menyimpan kata laluan anda di mana-mana. Jadi, ianya selamat untuk digunakan.
 
