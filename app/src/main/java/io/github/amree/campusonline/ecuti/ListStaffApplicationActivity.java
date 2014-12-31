@@ -69,15 +69,15 @@ public class ListStaffApplicationActivity extends ActionBarActivity {
 
         this.data = new ArrayList<DataApplication>();
 
-        for (int i = 0; i < CampusOnline.applications.length; i++) {
+        for (int i = 0; i < ECuti.applications.length; i++) {
 
             DataApplication dataApplication = new DataApplication();
 
-            dataApplication.setStatus(CampusOnline.applications[i][0]);
-            dataApplication.setUrl(CampusOnline.applications[i][1]);
-            dataApplication.setNama(CampusOnline.applications[i][2]);
-            dataApplication.setJenis(CampusOnline.applications[i][3]);
-            dataApplication.setMasaMinta(CampusOnline.applications[i][4]);
+            dataApplication.setStatus(ECuti.applications[i][0]);
+            dataApplication.setUrl(ECuti.applications[i][1]);
+            dataApplication.setNama(ECuti.applications[i][2]);
+            dataApplication.setJenis(ECuti.applications[i][3]);
+            dataApplication.setMasaMinta(ECuti.applications[i][4]);
 
             this.data.add(dataApplication);
         }
@@ -123,7 +123,7 @@ public class ListStaffApplicationActivity extends ActionBarActivity {
 
             try {
 
-                CampusOnline co = new CampusOnline();
+                ECuti co = new ECuti();
                 co.openSenaraiPermohonan();
 
             } catch (IOException e) {

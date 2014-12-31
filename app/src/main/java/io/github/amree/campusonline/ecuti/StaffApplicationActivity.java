@@ -149,7 +149,7 @@ public class StaffApplicationActivity extends ActionBarActivity {
 
         @Override
         protected Void doInBackground(String... params) {
-            CampusOnline co = new CampusOnline();
+            ECuti co = new ECuti();
 
             try {
 
@@ -208,7 +208,7 @@ public class StaffApplicationActivity extends ActionBarActivity {
         @Override
         protected Void doInBackground(String... params) {
 
-            CampusOnline co = new CampusOnline();
+            ECuti co = new ECuti();
 
             try {
 

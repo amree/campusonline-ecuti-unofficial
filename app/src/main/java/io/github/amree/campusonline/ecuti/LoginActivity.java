@@ -103,15 +103,15 @@ public class LoginActivity extends Activity {
         @Override
         protected Void doInBackground(String... params) {
 
-            CampusOnline campusOnline = new CampusOnline(params[0], params[1]);
+            ECuti eCuti = new ECuti(params[0], params[1]);
 
             try {
 
-                campusOnline.gotoLogin();
-                campusOnline.doLogin();
-                campusOnline.gotoCuti();
-                campusOnline.gotoSahCuti();
-                campusOnline.setApplications();
+                eCuti.gotoLogin();
+                eCuti.doLogin();
+                eCuti.gotoCuti();
+                eCuti.gotoSahCuti();
+                eCuti.setApplications();
 
                 Intent intent = new Intent(LoginActivity.this, ListStaffApplicationActivity.class);
                 startActivity(intent);

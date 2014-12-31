@@ -10,7 +10,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class CampusOnline {
+public class ECuti {
 
     String email;
     String password;
@@ -32,14 +32,14 @@ public class CampusOnline {
     String loginProcURL     = "";
     String processURL       = "";
 
-    public CampusOnline(String email, String password) {
+    public ECuti(String email, String password) {
         this.email = email;
         this.password = password;
 
-        CampusOnline.cookies = new HashMap();
+        ECuti.cookies = new HashMap();
     }
 
-    public CampusOnline() {
+    public ECuti() {
     }
 
     public void gotoLogin() throws IOException {
@@ -113,7 +113,7 @@ public class CampusOnline {
 
         setCookies();
 
-        // Now, we enter the real CampusOnline page
+        // Now, we enter the real ECuti page
         // Had to manually put the URL (absolute vs relative)
         this.res = Jsoup.connect(coMainURL)
                 .followRedirects(false)
@@ -238,7 +238,7 @@ public class CampusOnline {
         // Remember to skip the first row (first row == header)
         //
         Elements trElements = this.doc.select("table.contacts tr");
-        CampusOnline.applications = new String[trElements.size() - 1][5];
+        ECuti.applications = new String[trElements.size() - 1][5];
 
         for (int x = 1; x < trElements.size(); x++) {
             System.out.println(x + "-----");
@@ -266,38 +266,38 @@ public class CampusOnline {
                                 status = "LAIN-LAIN";
                         }
 
-                        CampusOnline.applications[x - 1][0] = status;
+                        ECuti.applications[x - 1][0] = status;
 
                         break;
                     case 2:
                         // Link
-                        CampusOnline.applications[x - 1][1] = this.cutiURL + tdElements.get(y).select("a").attr("href");
+                        ECuti.applications[x - 1][1] = this.cutiURL + tdElements.get(y).select("a").attr("href");
                         // Nama
-                        CampusOnline.applications[x - 1][2] = tdElements.get(y).text();
+                        ECuti.applications[x - 1][2] = tdElements.get(y).text();
                         break;
                     case 3:
                         // Jenis
-                        CampusOnline.applications[x - 1][3] = tdElements.get(y).text();
+                        ECuti.applications[x - 1][3] = tdElements.get(y).text();
                         break;
                     case 4:
                         // Tarikh dan masa
-                        CampusOnline.applications[x - 1][4] = tdElements.get(y).text();
+                        ECuti.applications[x - 1][4] = tdElements.get(y).text();
                         break;
                 }
             }
         }
 
-        for (int i = 0; i < CampusOnline.applications.length; i++) {
-            System.out.println(i + "," + 0 + " -- " + CampusOnline.applications[i][0]);
-            System.out.println(i + "," + 1 + " -- " + CampusOnline.applications[i][1]);
-            System.out.println(i + "," + 2 + " -- " + CampusOnline.applications[i][2]);
-            System.out.println(i + "," + 3 + " -- " + CampusOnline.applications[i][3]);
-            System.out.println(i + "," + 4 + " -- " + CampusOnline.applications[i][4]);
+        for (int i = 0; i < ECuti.applications.length; i++) {
+            System.out.println(i + "," + 0 + " -- " + ECuti.applications[i][0]);
+            System.out.println(i + "," + 1 + " -- " + ECuti.applications[i][1]);
+            System.out.println(i + "," + 2 + " -- " + ECuti.applications[i][2]);
+            System.out.println(i + "," + 3 + " -- " + ECuti.applications[i][3]);
+            System.out.println(i + "," + 4 + " -- " + ECuti.applications[i][4]);
         }
     }
 
     public String[][] getApplications() {
-        return CampusOnline.applications;
+        return ECuti.applications;
     }
 
     public DataApplication openPermohonananSah(String url) throws IOException {
