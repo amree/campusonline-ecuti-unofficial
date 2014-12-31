@@ -26,7 +26,7 @@ public class ListStaffApplicationActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_application_staff_list);
+        setContentView(R.layout.activity_list_staff_application);
 
         setTitle("Pengesahan Cuti");
 
