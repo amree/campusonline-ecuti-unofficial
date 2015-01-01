@@ -10,5 +10,7 @@
     <string name="action_return">Hantar Kembali</string>
     <string name="action_reject">Tidak Lulus</string>
     <string name="login">Masuk</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="no_data">Tiada data</string>
 
 </resources>
