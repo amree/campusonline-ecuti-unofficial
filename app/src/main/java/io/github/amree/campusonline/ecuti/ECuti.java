@@ -235,64 +235,73 @@ public class ECuti {
 
     public void setApplications() {
 
-        // Remember to skip the first row (first row == header)
-        //
         Elements trElements = this.doc.select("table.contacts tr");
-        ECuti.applications = new String[trElements.size() - 1][5];
 
-        for (int x = 1; x < trElements.size(); x++) {
-            System.out.println(x + "-----");
+        // Walaupun tiada rekod, tetap akan dua row
+        // jadi, kena periksa teks row terakhir
+        if (trElements.last().text().equals("Tiada Rekod")) {
 
-            Elements tdElements = trElements.get(x).select("td");
-            for (int y = 0; y < tdElements.size(); y++) {
+            ECuti.applications = new String[0][5];
 
-                switch (y) {
-                    case 1:
-                        // Status
-                        String imageFile = tdElements.get(y).select("img").attr("src");
+        } else {
 
-                        String status;
-                        switch (imageFile) {
-                            case "img/0.gif":
-                                status = "KERANI";
-                                break;
-                            case "img/1.gif":
-                                status = "PENYELIA";
-                                break;
-                            case "img/4.gif":
-                                status = "SEMAKAN";
-                                break;
-                            default:
-                                status = "LAIN-LAIN";
-                        }
+            // Remember to skip the first row (first row == header)
+            ECuti.applications = new String[trElements.size() - 1][5];
 
-                        ECuti.applications[x - 1][0] = status;
+            for (int x = 1; x < trElements.size(); x++) {
+                System.out.println(x + "-----");
 
-                        break;
-                    case 2:
-                        // Link
-                        ECuti.applications[x - 1][1] = this.cutiURL + tdElements.get(y).select("a").attr("href");
-                        // Nama
-                        ECuti.applications[x - 1][2] = tdElements.get(y).text();
-                        break;
-                    case 3:
-                        // Jenis
-                        ECuti.applications[x - 1][3] = tdElements.get(y).text();
-                        break;
-                    case 4:
-                        // Tarikh dan masa
-                        ECuti.applications[x - 1][4] = tdElements.get(y).text();
-                        break;
+                Elements tdElements = trElements.get(x).select("td");
+                for (int y = 0; y < tdElements.size(); y++) {
+
+                    switch (y) {
+                        case 1:
+                            // Status
+                            String imageFile = tdElements.get(y).select("img").attr("src");
+
+                            String status;
+                            switch (imageFile) {
+                                case "img/0.gif":
+                                    status = "KERANI";
+                                    break;
+                                case "img/1.gif":
+                                    status = "PENYELIA";
+                                    break;
+                                case "img/4.gif":
+                                    status = "SEMAKAN";
+                                    break;
+                                default:
+                                    status = "LAIN-LAIN";
+                            }
+
+                            ECuti.applications[x - 1][0] = status;
+
+                            break;
+                        case 2:
+                            // Link
+                            ECuti.applications[x - 1][1] = this.cutiURL + tdElements.get(y).select("a").attr("href");
+                            // Nama
+                            ECuti.applications[x - 1][2] = tdElements.get(y).text();
+                            break;
+                        case 3:
+                            // Jenis
+                            ECuti.applications[x - 1][3] = tdElements.get(y).text();
+                            break;
+                        case 4:
+                            // Tarikh dan masa
+                            ECuti.applications[x - 1][4] = tdElements.get(y).text();
+                            break;
+                    }
                 }
             }
-        }
 
-        for (int i = 0; i < ECuti.applications.length; i++) {
-            System.out.println(i + "," + 0 + " -- " + ECuti.applications[i][0]);
-            System.out.println(i + "," + 1 + " -- " + ECuti.applications[i][1]);
-            System.out.println(i + "," + 2 + " -- " + ECuti.applications[i][2]);
-            System.out.println(i + "," + 3 + " -- " + ECuti.applications[i][3]);
-            System.out.println(i + "," + 4 + " -- " + ECuti.applications[i][4]);
+            for (int i = 0; i < ECuti.applications.length; i++) {
+                System.out.println(i + "," + 0 + " -- " + ECuti.applications[i][0]);
+                System.out.println(i + "," + 1 + " -- " + ECuti.applications[i][1]);
+                System.out.println(i + "," + 2 + " -- " + ECuti.applications[i][2]);
+                System.out.println(i + "," + 3 + " -- " + ECuti.applications[i][3]);
+                System.out.println(i + "," + 4 + " -- " + ECuti.applications[i][4]);
+            }
         }
     }
 
