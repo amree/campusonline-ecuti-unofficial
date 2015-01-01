@@ -69,33 +69,40 @@ public class ListStaffApplicationActivity extends ActionBarActivity {
 
         this.data = new ArrayList<DataApplication>();
 
-        for (int i = 0; i < ECuti.applications.length; i++) {
+        if (ECuti.applications.length == 0) {
 
-            DataApplication dataApplication = new DataApplication();
+            setContentView(R.layout.fragment_no_data);
+            
+        } else {
 
-            dataApplication.setStatus(ECuti.applications[i][0]);
-            dataApplication.setUrl(ECuti.applications[i][1]);
-            dataApplication.setNama(ECuti.applications[i][2]);
-            dataApplication.setJenis(ECuti.applications[i][3]);
-            dataApplication.setMasaMinta(ECuti.applications[i][4]);
+            for (int i = 0; i < ECuti.applications.length; i++) {
 
-            this.data.add(dataApplication);
-        }
+                DataApplication dataApplication = new DataApplication();
 
-        adapter = new CustomAdapter(this, data);
-        final ListView listView = (ListView) findViewById(R.id.listView);
-        listView.setAdapter(adapter);
+                dataApplication.setStatus(ECuti.applications[i][0]);
+                dataApplication.setUrl(ECuti.applications[i][1]);
+                dataApplication.setNama(ECuti.applications[i][2]);
+                dataApplication.setJenis(ECuti.applications[i][3]);
+                dataApplication.setMasaMinta(ECuti.applications[i][4]);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Intent intent = new Intent(ListStaffApplicationActivity.this, StaffApplicationActivity.class);
-                intent.putExtra(APPROVE_URL, data.get(position).url);
-                startActivity(intent);
+                this.data.add(dataApplication);
             }
-        });
+
+            adapter = new CustomAdapter(this, data);
+            final ListView listView = (ListView) findViewById(R.id.listView);
+            listView.setAdapter(adapter);
+
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    Intent intent = new Intent(ListStaffApplicationActivity.this, StaffApplicationActivity.class);
+                    intent.putExtra(APPROVE_URL, data.get(position).url);
+                    startActivity(intent);
+                }
+            });
+        }
     }
 
     private class CampusOnlineTask extends AsyncTask<String, Void, Void> {
