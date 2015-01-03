@@ -20,11 +20,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ListStaffApplicationActivity"
+            android:name=".SenaraiPermohonanPengesahanActivity"
             android:label="@string/title_activity_second" >
         </activity>
         <activity
-            android:name=".StaffApplicationActivity"
+            android:name=".PermohonanPengesahanActivity"
             android:label="@string/title_activity_staff_application" >
         </activity>
     </application>

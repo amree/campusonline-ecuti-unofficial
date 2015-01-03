@@ -15,9 +15,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 
-public class ListStaffApplicationActivity extends ActionBarActivity {
+public class SenaraiPermohonanPengesahanActivity extends ActionBarActivity {
 
-    private static final String TAG = "ListStaffApplicationActivity";
+    private static final String TAG = "SenaraiPermohonanPengesahanActivity";
     public static final String APPROVE_URL= "APPROVE_URL";
 
     private ArrayList<DataApplication> data;
@@ -26,13 +26,13 @@ public class ListStaffApplicationActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_staff_application);
+        setContentView(R.layout.activity_senarai_permohonan_pengesahan);
 
         setTitle("Pengesahan Cuti");
 
         // For reload if have to
         Intent intent = getIntent();
-        String message = intent.getStringExtra(StaffApplicationActivity.FORCE_RELOAD);
+        String message = intent.getStringExtra(PermohonanPengesahanActivity.FORCE_RELOAD);
 
         if ((message != null) && (message.equals("true"))) {
 
@@ -97,7 +97,7 @@ public class ListStaffApplicationActivity extends ActionBarActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                    Intent intent = new Intent(ListStaffApplicationActivity.this, StaffApplicationActivity.class);
+                    Intent intent = new Intent(SenaraiPermohonanPengesahanActivity.this, PermohonanPengesahanActivity.class);
                     intent.putExtra(APPROVE_URL, data.get(position).url);
                     startActivity(intent);
                 }
@@ -113,7 +113,7 @@ public class ListStaffApplicationActivity extends ActionBarActivity {
         protected void onPreExecute() {
             super.onPreExecute();
 
-            progressDialog = ProgressDialog.show(ListStaffApplicationActivity.this, "", "Loading...");
+            progressDialog = ProgressDialog.show(SenaraiPermohonanPengesahanActivity.this, "", "Loading...");
         }
 
         @Override

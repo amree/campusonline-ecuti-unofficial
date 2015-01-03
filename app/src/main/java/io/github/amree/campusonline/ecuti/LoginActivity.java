@@ -150,7 +150,7 @@ public class LoginActivity extends Activity {
                 eCuti.gotoSahCuti();
                 eCuti.setApplications();
 
-                Intent intent = new Intent(LoginActivity.this, ListStaffApplicationActivity.class);
+                Intent intent = new Intent(LoginActivity.this, SenaraiPermohonanPengesahanActivity.class);
                 startActivity(intent);
 
             } catch (IOException e) {

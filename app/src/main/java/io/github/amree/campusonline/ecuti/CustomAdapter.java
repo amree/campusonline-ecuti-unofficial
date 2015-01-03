@@ -42,7 +42,7 @@ public class CustomAdapter extends BaseAdapter {
         // See if the view needs to be inflated
         View view = convertView;
         if (view == null) {
-            view = inflater.inflate(R.layout.list_item, null);
+            view = inflater.inflate(R.layout.list_item_pengesahan, null);
         }
         // Extract the desired views
         TextView nameText = (TextView) view.findViewById(R.id.nameValue);

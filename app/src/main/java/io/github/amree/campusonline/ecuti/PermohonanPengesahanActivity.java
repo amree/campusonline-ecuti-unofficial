@@ -15,21 +15,21 @@ import android.widget.TextView;
 import java.io.IOException;
 
 
-public class StaffApplicationActivity extends ActionBarActivity {
+public class PermohonanPengesahanActivity extends ActionBarActivity {
 
-    private static final String TAG = "StaffApplicationActivity";
+    private static final String TAG = "PermohonanPengesahanActivity";
     public static final String FORCE_RELOAD = "FORCE_RELOAD";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_staff_application);
+        setContentView(R.layout.activity_permohonan_pengesahan);
 
         setTitle("Permohonan");
 
         Intent intent = getIntent();
-        String message = intent.getStringExtra(ListStaffApplicationActivity.APPROVE_URL);
+        String message = intent.getStringExtra(SenaraiPermohonanPengesahanActivity.APPROVE_URL);
         Log.d(TAG, message);
 
         new LoadPermohonanTask().execute(message);
@@ -56,7 +56,7 @@ public class StaffApplicationActivity extends ActionBarActivity {
 
         } else  if (id == R.id.action_approve) {
 
-            AlertDialog.Builder dialogConfirmation = new AlertDialog.Builder(StaffApplicationActivity.this);
+            AlertDialog.Builder dialogConfirmation = new AlertDialog.Builder(PermohonanPengesahanActivity.this);
             dialogConfirmation.setMessage("Adakah anda pasti anda ingin meluluskan permohonan ini?");
             dialogConfirmation.setCancelable(true);
             dialogConfirmation.setPositiveButton("Yes",
@@ -65,7 +65,7 @@ public class StaffApplicationActivity extends ActionBarActivity {
                             dialog.cancel();
 
                             Intent intent = getIntent();
-                            String url = intent.getStringExtra(ListStaffApplicationActivity.APPROVE_URL);
+                            String url = intent.getStringExtra(SenaraiPermohonanPengesahanActivity.APPROVE_URL);
 
                             new lulusPermohonanTask().execute(url);
                         }
@@ -84,7 +84,7 @@ public class StaffApplicationActivity extends ActionBarActivity {
 
         } else if (id == R.id.action_reject) {
 
-            AlertDialog.Builder dialogConfirmation = new AlertDialog.Builder(StaffApplicationActivity.this);
+            AlertDialog.Builder dialogConfirmation = new AlertDialog.Builder(PermohonanPengesahanActivity.this);
             dialogConfirmation.setMessage("Adakah anda pasti anda ingin menolak permohonan ini?");
             dialogConfirmation.setCancelable(true);
             dialogConfirmation.setPositiveButton("Yes",
@@ -105,7 +105,7 @@ public class StaffApplicationActivity extends ActionBarActivity {
 
         } else if (id == R.id.action_return) {
 
-            AlertDialog.Builder dialogConfirmation = new AlertDialog.Builder(StaffApplicationActivity.this);
+            AlertDialog.Builder dialogConfirmation = new AlertDialog.Builder(PermohonanPengesahanActivity.this);
             dialogConfirmation.setMessage("Adakah anda pasti anda ingin kembalikan permohonan ini?");
             dialogConfirmation.setCancelable(true);
             dialogConfirmation.setPositiveButton("Yes",
@@ -137,7 +137,7 @@ public class StaffApplicationActivity extends ActionBarActivity {
         protected void onPreExecute() {
             super.onPreExecute();
 
-            progressDialog = ProgressDialog.show(StaffApplicationActivity.this, "", "Submitting...");
+            progressDialog = ProgressDialog.show(PermohonanPengesahanActivity.this, "", "Submitting...");
         }
 
         @Override
@@ -159,7 +159,7 @@ public class StaffApplicationActivity extends ActionBarActivity {
                 e.printStackTrace();
             }
 
-            Intent intent = new Intent(StaffApplicationActivity.this, ListStaffApplicationActivity.class);
+            Intent intent = new Intent(PermohonanPengesahanActivity.this, SenaraiPermohonanPengesahanActivity.class);
             intent.putExtra(FORCE_RELOAD, "true");
             startActivity(intent);
 
@@ -176,7 +176,7 @@ public class StaffApplicationActivity extends ActionBarActivity {
         protected void onPreExecute() {
             super.onPreExecute();
 
-            progressDialog = ProgressDialog.show(StaffApplicationActivity.this, "", "Loading...");
+            progressDialog = ProgressDialog.show(PermohonanPengesahanActivity.this, "", "Loading...");
         }
 
         @Override
