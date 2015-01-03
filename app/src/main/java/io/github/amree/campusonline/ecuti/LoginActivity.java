@@ -3,6 +3,7 @@ package io.github.amree.campusonline.ecuti;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -11,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -54,6 +56,32 @@ public class LoginActivity extends Activity {
         EditText email = (EditText) findViewById(R.id.editTextEmail);
         EditText password = (EditText) findViewById(R.id.editTextPassword);
 
+        if ((email.getText().toString().trim().isEmpty()) ||
+                (!email.getText().toString().trim().endsWith("@usm.my"))) {
+
+            Context context = getApplicationContext();
+            CharSequence text = "Sila isi email @usm.my anda.";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+
+            return;
+        }
+
+        if (password.getText().toString().trim().isEmpty()) {
+
+            Context context = getApplicationContext();
+            CharSequence text = "Sila isi kata laluan anda.";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+
+            return;
+        }
+
+        // Everything passed, let's try logging in
         new CampusOnlineTask().execute(email.getText().toString(),
                                        password.getText().toString());
 
