@@ -72,7 +72,7 @@ public class ECuti {
         this.doc = this.res.parse();
     }
 
-    public void doLogin() throws IOException {
+    public void doLogin() throws IOException, LoginException {
         // We're in the page with the login form. Extract required forms
         Elements forms = this.doc.select("#MainForm input");
 
@@ -101,6 +101,11 @@ public class ECuti {
         setCookies();
 
         this.doc = this.res.parse();
+
+        if (this.doc.select("title").html().trim().equals("Universiti Sains Malaysia, Pulau Pinang")) {
+            throw new LoginException("Email atau kata laluan anda salah.");
+        }
+
         this.processURL = this.doc.select("a[href]").get(0).attr("abs:href");
 
         this.res = Jsoup.connect(this.processURL)
@@ -138,7 +143,7 @@ public class ECuti {
         if (links.size() > 0) {
             link = this.doc.select("a[href*=/ecuti_v2/]").get(0);
         } else {
-            throw new LoginException("Salah email atau kata laluan");
+            throw new LoginException("Ada masalah dengan kemasukan anda. Sila cuba sekali lagi.");
         }
 
 
