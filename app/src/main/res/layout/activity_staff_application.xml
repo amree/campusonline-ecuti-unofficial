@@ -13,8 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nama"
-        android:id="@+id/textViewNama"
-        android:textStyle="bold" />
+        android:id="@+id/textViewNama" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -30,8 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Jenis Cuti"
-        android:id="@+id/textViewJenisCuti"
-        android:textStyle="bold" />
+        android:id="@+id/textViewJenisCuti" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -47,8 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tarikh Cuti"
-        android:id="@+id/textViewTarikhCuti"
-        android:textStyle="bold" />
+        android:id="@+id/textViewTarikhCuti" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -64,8 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tempoh Cuti"
-        android:id="@+id/textViewTempohCuti"
-        android:textStyle="bold" />
+        android:id="@+id/textViewTempohCuti" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -81,8 +77,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sebab Cuti"
-        android:id="@+id/textViewSebabCuti"
-        android:textStyle="bold" />
+        android:id="@+id/textViewSebabCuti" />
 
     <TextView
         android:layout_width="wrap_content"
