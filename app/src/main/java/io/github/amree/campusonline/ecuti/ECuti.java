@@ -23,7 +23,6 @@ public class ECuti {
 
     String coMainURL        = "http://campusonline.usm.my/smus/employee_i.asp?m=1&c=1";
     String campusOnlineURL  = "https://campusonline.usm.my";
-    String idMainURL        = "https://id.usm.my/";
     String cutiURL          = "http://e-cuti.usm.my/ecuti_v2/";
     String realCutiURL      = "http://e-cuti.usm.my/ecuti_v2/default.asp";
     String sahCutiURL       = "http://e-cuti.usm.my/ecuti_v2/default.asp?sec=P&fn=1";
