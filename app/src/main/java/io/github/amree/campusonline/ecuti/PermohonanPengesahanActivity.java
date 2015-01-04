@@ -52,11 +52,7 @@ public class PermohonanPengesahanActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-
-            return true;
-
-        } else  if (id == R.id.action_approve) {
+        if (id == R.id.action_approve) {
 
             AlertDialog.Builder dialogConfirmation = new AlertDialog.Builder(PermohonanPengesahanActivity.this);
             dialogConfirmation.setMessage("Adakah anda pasti anda ingin meluluskan permohonan ini?");
