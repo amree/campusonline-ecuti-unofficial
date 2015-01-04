@@ -2,6 +2,7 @@ package io.github.amree.campusonline.ecuti;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -84,45 +86,21 @@ public class PermohonanPengesahanActivity extends ActionBarActivity {
 
         } else if (id == R.id.action_reject) {
 
-            AlertDialog.Builder dialogConfirmation = new AlertDialog.Builder(PermohonanPengesahanActivity.this);
-            dialogConfirmation.setMessage("Adakah anda pasti anda ingin menolak permohonan ini?");
-            dialogConfirmation.setCancelable(true);
-            dialogConfirmation.setPositiveButton("Yes",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    });
-            dialogConfirmation.setNegativeButton("No",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    });
+            Context context = getApplicationContext();
+            CharSequence text = "Fungsi ini sedang dibangunkan.";
+            int duration = Toast.LENGTH_SHORT;
 
-            AlertDialog confirm = dialogConfirmation.create();
-            confirm.show();
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
 
         } else if (id == R.id.action_return) {
 
-            AlertDialog.Builder dialogConfirmation = new AlertDialog.Builder(PermohonanPengesahanActivity.this);
-            dialogConfirmation.setMessage("Adakah anda pasti anda ingin kembalikan permohonan ini?");
-            dialogConfirmation.setCancelable(true);
-            dialogConfirmation.setPositiveButton("Yes",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    });
-            dialogConfirmation.setNegativeButton("No",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    });
+            Context context = getApplicationContext();
+            CharSequence text = "Fungsi ini sedang dibangunkan.";
+            int duration = Toast.LENGTH_SHORT;
 
-            AlertDialog confirm = dialogConfirmation.create();
-            confirm.show();
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
 
         }
 
