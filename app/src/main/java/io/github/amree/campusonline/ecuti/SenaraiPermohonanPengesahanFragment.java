@@ -44,7 +44,24 @@ public class SenaraiPermohonanPengesahanFragment extends ListFragment {
             dataApplication.setUrl(ECuti.applications[i][1]);
             dataApplication.setNama(ECuti.applications[i][2]);
             dataApplication.setJenis(ECuti.applications[i][3]);
-            dataApplication.setMasaMinta(ECuti.applications[i][4]);
+
+
+            try {
+
+                String input = ECuti.applications[i][4];
+                Date date = new SimpleDateFormat("d/M/yyyy h:m:s a").parse(input);
+                long milliseconds = date.getTime();
+
+                CharSequence timeAgo = DateUtils.getRelativeTimeSpanString(milliseconds,
+                                                    System.currentTimeMillis(),
+                                                    DateUtils.MINUTE_IN_MILLIS,
+                                                    DateUtils.FORMAT_NO_NOON);
+
+                dataApplication.setMasaMinta(timeAgo.toString());
+
+            } catch (ParseException e) {
+                dataApplication.setMasaMinta(ECuti.applications[i][4]);
+            }
 
             data.add(dataApplication);
         }
