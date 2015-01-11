@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,6 +18,8 @@ import android.support.v4.widget.DrawerLayout;
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks,
                    SenaraiPermohonanPengesahanFragment.OnFragmentInteractionListener {
+
+    private static final String TAG = "MainActivity";
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -153,7 +156,7 @@ public class MainActivity extends ActionBarActivity
     }
 
     @Override
-    public void onFragmentInteraction(String id) {
-
+    public void onFragmentInteraction(String url) {
+        Log.d(TAG, "URL: " + url);
     }
 }

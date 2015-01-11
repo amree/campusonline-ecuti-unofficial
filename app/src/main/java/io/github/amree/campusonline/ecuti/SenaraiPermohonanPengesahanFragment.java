@@ -22,6 +22,7 @@ import java.util.Date;
 public class SenaraiPermohonanPengesahanFragment extends ListFragment {
 
     private OnFragmentInteractionListener mListener;
+    private ArrayList<DataApplication> data;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -34,7 +35,7 @@ public class SenaraiPermohonanPengesahanFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ArrayList<DataApplication> data = new ArrayList<DataApplication>();;
+        data = new ArrayList<DataApplication>();;
 
         for (int i = 0; i < ECuti.applications.length; i++) {
 
@@ -98,8 +99,7 @@ public class SenaraiPermohonanPengesahanFragment extends ListFragment {
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
             // mListener.onFragmentInteraction(DummyContent.ITEMS.get(position).id);
-            System.out.println("Position: " + position);
-
+            mListener.onFragmentInteraction(data.get(position).url);
         }
     }
 
@@ -115,7 +115,7 @@ public class SenaraiPermohonanPengesahanFragment extends ListFragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onFragmentInteraction(String id);
+        public void onFragmentInteraction(String url);
     }
 
 }
