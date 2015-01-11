@@ -99,7 +99,7 @@ public class SenaraiPermohonanPengesahanFragment extends ListFragment {
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
             // mListener.onFragmentInteraction(DummyContent.ITEMS.get(position).id);
-            mListener.onFragmentInteraction(data.get(position).url);
+            mListener.onSenaraiPermohonanPengesahanFragmentInteraction(data.get(position).url);
         }
     }
 
@@ -115,7 +115,7 @@ public class SenaraiPermohonanPengesahanFragment extends ListFragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onFragmentInteraction(String url);
+        public void onSenaraiPermohonanPengesahanFragmentInteraction(String url);
     }
 
 }

@@ -156,7 +156,7 @@ public class MainActivity extends ActionBarActivity
     }
 
     @Override
-    public void onFragmentInteraction(String url) {
+    public void onSenaraiPermohonanPengesahanFragmentInteraction(String url) {
         Log.d(TAG, "URL: " + url);
     }
 }
