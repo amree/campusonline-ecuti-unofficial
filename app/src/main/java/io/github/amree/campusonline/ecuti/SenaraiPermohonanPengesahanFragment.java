@@ -35,7 +35,7 @@ public class SenaraiPermohonanPengesahanFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        data = new ArrayList<DataApplication>();;
+        data = new ArrayList<DataApplication>();
 
         for (int i = 0; i < ECuti.applications.length; i++) {
 

@@ -2,11 +2,17 @@ package io.github.amree.campusonline.ecuti;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.app.ListFragment;
+import android.support.v4.app.ListFragment;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 import io.github.amree.campusonline.ecuti.dummy.DummyContent;
 
@@ -19,26 +25,8 @@ import io.github.amree.campusonline.ecuti.dummy.DummyContent;
  */
 public class PermohonanPengesahanFragment extends ListFragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     private OnFragmentInteractionListener mListener;
-
-    // TODO: Rename and change types of parameters
-    public static PermohonanPengesahanFragment newInstance(String param1, String param2) {
-        PermohonanPengesahanFragment fragment = new PermohonanPengesahanFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private ArrayList<DataApplication> data;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -51,14 +39,26 @@ public class PermohonanPengesahanFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+        data = new ArrayList<DataApplication>();
+
+        for (int i = 0; i < ECuti.applications.length; i++) {
+
+            DataApplication dataApplication = new DataApplication();
+
+            dataApplication.setNama("AMREE");
+            dataApplication.setJenis("CUTI URGENT");
+            dataApplication.setTarikhDari("1-1-2015");
+            dataApplication.setTarikhHingga("1-1-2015");
+            dataApplication.setJumlahHari("20");
+            dataApplication.setSebabCuti("SUKA-SUKA");
+
+
+            data.add(dataApplication);
         }
 
-        // TODO: Change Adapter to display your content
-        setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.ITEMS));
+        PermohonanPengesahanAdapter adapter = new PermohonanPengesahanAdapter(getActivity(), data);
+
+        setListAdapter(adapter);
     }
 
 
@@ -87,7 +87,7 @@ public class PermohonanPengesahanFragment extends ListFragment {
         if (null != mListener) {
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
-            mListener.onFragmentInteraction(DummyContent.ITEMS.get(position).id);
+            mListener.onPermohonanPengesahanFragmentInteraction(DummyContent.ITEMS.get(position).id);
         }
     }
 
@@ -103,7 +103,7 @@ public class PermohonanPengesahanFragment extends ListFragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onFragmentInteraction(String id);
+        public void onPermohonanPengesahanFragmentInteraction(String id);
     }
 
 }

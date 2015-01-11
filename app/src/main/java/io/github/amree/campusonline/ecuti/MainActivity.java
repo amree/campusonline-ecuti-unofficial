@@ -17,7 +17,8 @@ import android.support.v4.widget.DrawerLayout;
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks,
-                   SenaraiPermohonanPengesahanFragment.OnFragmentInteractionListener {
+                   SenaraiPermohonanPengesahanFragment.OnFragmentInteractionListener,
+                   PermohonanPengesahanFragment.OnFragmentInteractionListener {
 
     private static final String TAG = "MainActivity";
 
@@ -158,5 +159,18 @@ public class MainActivity extends ActionBarActivity
     @Override
     public void onSenaraiPermohonanPengesahanFragmentInteraction(String url) {
         Log.d(TAG, "URL: " + url);
+
+        Fragment fragment = null;
+        fragment = new PermohonanPengesahanFragment();
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, fragment)
+                .commit();
+    }
+
+    @Override
+    public void onPermohonanPengesahanFragmentInteraction(String id) {
+        Log.d(TAG, id);
     }
 }
