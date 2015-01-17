@@ -15,7 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.TextView;
 
 import java.io.IOException;
 
@@ -23,7 +22,7 @@ import java.io.IOException;
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks,
                    SenaraiPermohonanPengesahanFragment.OnFragmentInteractionListener,
-                   MehFragment.OnFragmentInteractionListener {
+                   PermohonanPengesahanFragment.OnFragmentInteractionListener {
 
     private static final String TAG = "MainActivity";
 
@@ -169,7 +168,7 @@ public class MainActivity extends ActionBarActivity
 //        args.putString("nama", "amree la");
 //
 //        Fragment fragment = null;
-//        fragment = new MehFragment();
+//        fragment = new PermohonanPengesahanFragment();
 //        fragment.setArguments(args);
 //
 //        FragmentManager fragmentManager = getSupportFragmentManager();
@@ -210,7 +209,7 @@ public class MainActivity extends ActionBarActivity
             args.putString("sahURL", dataApp.getUrl());
 
             Fragment fragment = null;
-            fragment = new MehFragment();
+            fragment = new PermohonanPengesahanFragment();
             fragment.setArguments(args);
 
             FragmentManager fragmentManager = getSupportFragmentManager();

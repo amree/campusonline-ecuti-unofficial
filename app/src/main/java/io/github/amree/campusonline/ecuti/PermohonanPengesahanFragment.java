@@ -17,19 +17,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link MehFragment.OnFragmentInteractionListener} interface
+ * {@link PermohonanPengesahanFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link MehFragment#newInstance} factory method to
+ * Use the {@link PermohonanPengesahanFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MehFragment extends Fragment {
+public class PermohonanPengesahanFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -49,11 +46,11 @@ public class MehFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment MehFragment.
+     * @return A new instance of fragment PermohonanPengesahanFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MehFragment newInstance(String param1, String param2) {
-        MehFragment fragment = new MehFragment();
+    public static PermohonanPengesahanFragment newInstance(String param1, String param2) {
+        PermohonanPengesahanFragment fragment = new PermohonanPengesahanFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,7 +58,7 @@ public class MehFragment extends Fragment {
         return fragment;
     }
 
-    public MehFragment() {
+    public PermohonanPengesahanFragment() {
         // Required empty public constructor
     }
 
