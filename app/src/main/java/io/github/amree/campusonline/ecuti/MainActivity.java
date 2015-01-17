@@ -23,7 +23,6 @@ import java.io.IOException;
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks,
                    SenaraiPermohonanPengesahanFragment.OnFragmentInteractionListener,
-                   PermohonanPengesahanFragment.OnFragmentInteractionListener,
                    MehFragment.OnFragmentInteractionListener {
 
     private static final String TAG = "MainActivity";
@@ -177,11 +176,6 @@ public class MainActivity extends ActionBarActivity
 //        fragmentManager.beginTransaction()
 //                .replace(R.id.container, fragment)
 //                .commit();
-    }
-
-    @Override
-    public void onPermohonanPengesahanFragmentInteraction(String id) {
-        Log.d(TAG, id);
     }
 
     @Override

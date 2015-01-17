@@ -20,14 +20,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SenaraiPermohonanPengesahanActivity"
-            android:label="@string/title_activity_second" >
-        </activity>
-        <activity
-            android:name=".PermohonanPengesahanActivity"
-            android:label="@string/title_activity_staff_application" >
-        </activity>
-        <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main" >
         </activity>
