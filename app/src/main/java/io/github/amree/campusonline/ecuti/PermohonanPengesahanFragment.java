@@ -78,7 +78,7 @@ public class PermohonanPengesahanFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_meh, container, false);
+        View v = inflater.inflate(R.layout.fragment_permohonan_pengesahan, container, false);
 
         ((TextView) v.findViewById(R.id.nameValue2)).setText(getArguments().getString("nama"));
         ((TextView) v.findViewById(R.id.jenisValue2)).setText(getArguments().getString("jenisCuti"));
