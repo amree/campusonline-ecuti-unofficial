@@ -171,8 +171,10 @@ public class MainActivity extends ActionBarActivity
         fragment = new SenaraiPermohonanPengesahanFragment();
 
         FragmentManager fragmentManager = getSupportFragmentManager();
+
         fragmentManager.beginTransaction()
                 .replace(R.id.container, fragment)
+                .addToBackStack("onPermohonanPengesahanFragment")
                 .commit();
     }
 
@@ -207,8 +209,10 @@ public class MainActivity extends ActionBarActivity
             fragment.setArguments(args);
 
             FragmentManager fragmentManager = getSupportFragmentManager();
+
             fragmentManager.beginTransaction()
                     .replace(R.id.container, fragment)
+                    .addToBackStack("onPermohonanPengesahanFragment")
                     .commit();
 
         }
