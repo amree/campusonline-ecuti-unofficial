@@ -353,12 +353,12 @@ public class ECuti {
                 " table > tbody > tr:nth-child(2) > td:nth-child(3)";
         String sebabCutiSelect    = infoCutiSelector + " > tr:nth-child(8) > td:nth-child(2)";
 
-        String nama = this.doc.select(namaSelect).text();
-        String jenisCuti = this.doc.select(jenisCutiSelect).text();
-        String tarikhDari = this.doc.select(tarikhDariSelect).text();
-        String tarikhHingga = this.doc.select(tarikhHinggaSelect).text();
-        String jumlahHari = this.doc.select(jumlahHariSelect).text();
-        String sebabCuti = this.doc.select(sebabCutiSelect).text();
+        String nama = cleanText(this.doc.select(namaSelect).text());
+        String jenisCuti = cleanText(this.doc.select(jenisCutiSelect).text());
+        String tarikhDari = cleanText(this.doc.select(tarikhDariSelect).text());
+        String tarikhHingga = cleanText(this.doc.select(tarikhHinggaSelect).text());
+        String jumlahHari = cleanText(this.doc.select(jumlahHariSelect).text());
+        String sebabCuti = cleanText(this.doc.select(sebabCutiSelect).text());
 
         DataApplication dataApplication = new DataApplication();
 
@@ -368,6 +368,7 @@ public class ECuti {
         dataApplication.setTarikhHingga(tarikhHingga);
         dataApplication.setJumlahHari(jumlahHari);
         dataApplication.setSebabCuti(sebabCuti);
+        dataApplication.setUrl(url);
 
         return dataApplication;
     }
@@ -410,6 +411,14 @@ public class ECuti {
             return true;
         } else {
             return false;
+        }
+    }
+
+    private String cleanText(String str) {
+        if ((str.length() == 0) || (str.length() == 1)) {
+            return "";
+        } else {
+            return str.trim().substring(1);
         }
     }
 }

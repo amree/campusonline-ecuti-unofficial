@@ -1,6 +1,8 @@
 package io.github.amree.campusonline.ecuti;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -13,12 +15,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
+import android.widget.TextView;
+
+import java.io.IOException;
 
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks,
                    SenaraiPermohonanPengesahanFragment.OnFragmentInteractionListener,
-                   PermohonanPengesahanFragment.OnFragmentInteractionListener {
+                   PermohonanPengesahanFragment.OnFragmentInteractionListener,
+                   MehFragment.OnFragmentInteractionListener {
 
     private static final String TAG = "MainActivity";
 
@@ -158,19 +164,82 @@ public class MainActivity extends ActionBarActivity
 
     @Override
     public void onSenaraiPermohonanPengesahanFragmentInteraction(String url) {
-        Log.d(TAG, "URL: " + url);
+        new LoadPermohonanTask().execute(url);
 
-        Fragment fragment = null;
-        fragment = new PermohonanPengesahanFragment();
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, fragment)
-                .commit();
+//        Bundle args = new Bundle();
+//        args.putString("nama", "amree la");
+//
+//        Fragment fragment = null;
+//        fragment = new MehFragment();
+//        fragment.setArguments(args);
+//
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        fragmentManager.beginTransaction()
+//                .replace(R.id.container, fragment)
+//                .commit();
     }
 
     @Override
     public void onPermohonanPengesahanFragmentInteraction(String id) {
         Log.d(TAG, id);
+    }
+
+    @Override
+    public void onMehFragmentInteraction(String str) {
+        Log.d(TAG, str);
+    }
+
+    private class LoadPermohonanTask extends AsyncTask<String, Void, Void> {
+
+        ProgressDialog progressDialog;
+        DataApplication dataApp;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            progressDialog = ProgressDialog.show(MainActivity.this, "", "Loading...");
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            progressDialog.dismiss();
+
+            Bundle args = new Bundle();
+            args.putString("nama", dataApp.getNama());
+            args.putString("jenisCuti", dataApp.getJenis());
+            args.putString("tarikhCuti", dataApp.getTarikhDari() + " - " + dataApp.getTarikhHingga());
+            args.putString("tempohCuti", dataApp.getJumlahHari());
+            args.putString("sebabcuti", dataApp.getSebabCuti());
+            args.putString("sahURL", dataApp.getUrl());
+
+            Fragment fragment = null;
+            fragment = new MehFragment();
+            fragment.setArguments(args);
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, fragment)
+                    .commit();
+
+        }
+
+        @Override
+        protected Void doInBackground(String... params) {
+
+            ECuti co = new ECuti();
+
+            try {
+
+                this.dataApp = co.openPermohonananSah(params[0]);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
     }
 }

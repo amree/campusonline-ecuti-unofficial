@@ -3,9 +3,9 @@ package io.github.amree.campusonline.ecuti;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
-import android.text.format.DateUtils;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 
@@ -38,6 +38,8 @@ public class PermohonanPengesahanFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setHasOptionsMenu(true);
 
         data = new ArrayList<DataApplication>();
 
@@ -89,6 +91,18 @@ public class PermohonanPengesahanFragment extends ListFragment {
             // fragment is attached to one) that an item has been selected.
             mListener.onPermohonanPengesahanFragmentInteraction(DummyContent.ITEMS.get(position).id);
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+//        inflater.inflate(R.menu.menu_staff_application, menu);
+
+        System.out.println("Calling from onCreateOptionsMenu1");
+
+        super.onCreateOptionsMenu(menu, inflater);
+
+        System.out.println("Calling from onCreateOptionsMenu2");
     }
 
     /**

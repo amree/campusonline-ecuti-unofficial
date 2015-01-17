@@ -46,7 +46,6 @@ public class SenaraiPermohonanPengesahanFragment extends ListFragment {
             dataApplication.setNama(ECuti.applications[i][2]);
             dataApplication.setJenis(ECuti.applications[i][3]);
 
-
             try {
 
                 String input = ECuti.applications[i][4];
