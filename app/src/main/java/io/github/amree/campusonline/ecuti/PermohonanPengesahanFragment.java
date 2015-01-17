@@ -128,7 +128,7 @@ public class PermohonanPengesahanFragment extends Fragment {
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onMehFragmentInteraction("str");
+            mListener.onPermohonanPengesahanFragmentInteraction();
         }
     }
 
@@ -165,6 +165,13 @@ public class PermohonanPengesahanFragment extends Fragment {
             super.onPostExecute(aVoid);
 
             progressDialog.dismiss();
+
+            if (null != mListener) {
+                // Notify the active callbacks interface (the activity, if the
+                // fragment is attached to one) that an item has been selected.
+                // mListener.onFragmentInteraction(DummyContent.ITEMS.get(position).id);
+                mListener.onPermohonanPengesahanFragmentInteraction();
+            }
         }
 
         @Override
@@ -181,7 +188,9 @@ public class PermohonanPengesahanFragment extends Fragment {
 
             System.out.println("Params: " + params[0]);
 
-            // TODO: Go back to list permohonan
+            // TODO:
+            // Need to mark everything is OK before returning
+            // Will effect onPostExecute
 
             return null;
         }
@@ -199,6 +208,6 @@ public class PermohonanPengesahanFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onMehFragmentInteraction(String str);
+        public void onPermohonanPengesahanFragmentInteraction();
     }
 }

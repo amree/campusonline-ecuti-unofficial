@@ -166,8 +166,14 @@ public class MainActivity extends ActionBarActivity
     }
 
     @Override
-    public void onMehFragmentInteraction(String str) {
-        Log.d(TAG, str);
+    public void onPermohonanPengesahanFragmentInteraction() {
+        Fragment fragment = null;
+        fragment = new SenaraiPermohonanPengesahanFragment();
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, fragment)
+                .commit();
     }
 
     private class LoadPermohonanTask extends AsyncTask<String, Void, Void> {
