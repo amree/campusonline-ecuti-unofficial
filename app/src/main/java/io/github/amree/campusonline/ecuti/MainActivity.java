@@ -163,18 +163,6 @@ public class MainActivity extends ActionBarActivity
     @Override
     public void onSenaraiPermohonanPengesahanFragmentInteraction(String url) {
         new LoadPermohonanTask().execute(url);
-
-//        Bundle args = new Bundle();
-//        args.putString("nama", "amree la");
-//
-//        Fragment fragment = null;
-//        fragment = new PermohonanPengesahanFragment();
-//        fragment.setArguments(args);
-//
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        fragmentManager.beginTransaction()
-//                .replace(R.id.container, fragment)
-//                .commit();
     }
 
     @Override
