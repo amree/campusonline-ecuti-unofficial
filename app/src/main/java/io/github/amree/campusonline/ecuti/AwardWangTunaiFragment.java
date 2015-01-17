@@ -2,7 +2,7 @@ package io.github.amree.campusonline.ecuti;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.app.ListFragment;
+import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -87,7 +87,7 @@ public class AwardWangTunaiFragment extends ListFragment {
         if (null != mListener) {
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
-            mListener.onFragmentInteraction(DummyContent.ITEMS.get(position).id);
+            mListener.onAwardWangTunaiFragmentInteraction(DummyContent.ITEMS.get(position).id);
         }
     }
 
@@ -103,7 +103,7 @@ public class AwardWangTunaiFragment extends ListFragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onFragmentInteraction(String id);
+        public void onAwardWangTunaiFragmentInteraction(String id);
     }
 
 }
