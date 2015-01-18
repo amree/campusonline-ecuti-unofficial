@@ -37,18 +37,18 @@ public class SenaraiPermohonanPengesahanFragment extends ListFragment {
 
         data = new ArrayList<DataApplication>();
 
-        for (int i = 0; i < ECuti.applications.length; i++) {
+        for (int i = 0; i < Cuti.applications.length; i++) {
 
             DataApplication dataApplication = new DataApplication();
 
-            dataApplication.setStatus(ECuti.applications[i][0]);
-            dataApplication.setUrl(ECuti.applications[i][1]);
-            dataApplication.setNama(ECuti.applications[i][2]);
-            dataApplication.setJenis(ECuti.applications[i][3]);
+            dataApplication.setStatus(Cuti.applications[i][0]);
+            dataApplication.setUrl(Cuti.applications[i][1]);
+            dataApplication.setNama(Cuti.applications[i][2]);
+            dataApplication.setJenis(Cuti.applications[i][3]);
 
             try {
 
-                String input = ECuti.applications[i][4];
+                String input = Cuti.applications[i][4];
                 Date date = new SimpleDateFormat("d/M/yyyy h:m:s a").parse(input);
                 long milliseconds = date.getTime();
 
@@ -60,7 +60,7 @@ public class SenaraiPermohonanPengesahanFragment extends ListFragment {
                 dataApplication.setMasaMinta(timeAgo.toString());
 
             } catch (ParseException e) {
-                dataApplication.setMasaMinta(ECuti.applications[i][4]);
+                dataApplication.setMasaMinta(Cuti.applications[i][4]);
             }
 
             data.add(dataApplication);

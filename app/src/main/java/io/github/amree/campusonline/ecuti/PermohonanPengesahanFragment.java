@@ -176,7 +176,7 @@ public class PermohonanPengesahanFragment extends Fragment {
 
         @Override
         protected Void doInBackground(String... params) {
-//            ECuti co = new ECuti();
+//            Cuti co = new Cuti();
 //
 //            try {
 //

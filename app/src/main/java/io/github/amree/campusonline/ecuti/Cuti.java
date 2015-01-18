@@ -10,7 +10,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class ECuti {
+public class Cuti {
 
     String email;
     String password;
@@ -31,14 +31,14 @@ public class ECuti {
     String loginProcURL     = "";
     String processURL       = "";
 
-    public ECuti(String email, String password) {
+    public Cuti(String email, String password) {
         this.email = email;
         this.password = password;
 
-        ECuti.cookies = new HashMap();
+        Cuti.cookies = new HashMap();
     }
 
-    public ECuti() {
+    public Cuti() {
     }
 
     public void gotoLogin() throws IOException {
@@ -117,7 +117,7 @@ public class ECuti {
 
         setCookies();
 
-        // Now, we enter the real ECuti page
+        // Now, we enter the real Cuti page
         // Had to manually put the URL (absolute vs relative)
         this.res = Jsoup.connect(coMainURL)
                 .followRedirects(false)
@@ -245,12 +245,12 @@ public class ECuti {
         // jadi, kena periksa teks row terakhir
         if (trElements.last().text().equals("Tiada Rekod")) {
 
-            ECuti.applications = new String[0][5];
+            Cuti.applications = new String[0][5];
 
         } else {
 
             // Remember to skip the first row (first row == header)
-            ECuti.applications = new String[trElements.size() - 1][5];
+            Cuti.applications = new String[trElements.size() - 1][5];
 
             for (int x = 1; x < trElements.size(); x++) {
                 System.out.println(x + "-----");
@@ -278,39 +278,39 @@ public class ECuti {
                                     status = "LAIN-LAIN";
                             }
 
-                            ECuti.applications[x - 1][0] = status;
+                            Cuti.applications[x - 1][0] = status;
 
                             break;
                         case 2:
                             // Link
-                            ECuti.applications[x - 1][1] = this.cutiURL + tdElements.get(y).select("a").attr("href");
+                            Cuti.applications[x - 1][1] = this.cutiURL + tdElements.get(y).select("a").attr("href");
                             // Nama
-                            ECuti.applications[x - 1][2] = tdElements.get(y).text();
+                            Cuti.applications[x - 1][2] = tdElements.get(y).text();
                             break;
                         case 3:
                             // Jenis
-                            ECuti.applications[x - 1][3] = tdElements.get(y).text();
+                            Cuti.applications[x - 1][3] = tdElements.get(y).text();
                             break;
                         case 4:
                             // Tarikh dan masa
-                            ECuti.applications[x - 1][4] = tdElements.get(y).text();
+                            Cuti.applications[x - 1][4] = tdElements.get(y).text();
                             break;
                     }
                 }
             }
 
-            for (int i = 0; i < ECuti.applications.length; i++) {
-                System.out.println(i + "," + 0 + " -- " + ECuti.applications[i][0]);
-                System.out.println(i + "," + 1 + " -- " + ECuti.applications[i][1]);
-                System.out.println(i + "," + 2 + " -- " + ECuti.applications[i][2]);
-                System.out.println(i + "," + 3 + " -- " + ECuti.applications[i][3]);
-                System.out.println(i + "," + 4 + " -- " + ECuti.applications[i][4]);
+            for (int i = 0; i < Cuti.applications.length; i++) {
+                System.out.println(i + "," + 0 + " -- " + Cuti.applications[i][0]);
+                System.out.println(i + "," + 1 + " -- " + Cuti.applications[i][1]);
+                System.out.println(i + "," + 2 + " -- " + Cuti.applications[i][2]);
+                System.out.println(i + "," + 3 + " -- " + Cuti.applications[i][3]);
+                System.out.println(i + "," + 4 + " -- " + Cuti.applications[i][4]);
             }
         }
     }
 
     public String[][] getApplications() {
-        return ECuti.applications;
+        return Cuti.applications;
     }
 
     public DataApplication openPermohonananSah(String url) throws IOException {
