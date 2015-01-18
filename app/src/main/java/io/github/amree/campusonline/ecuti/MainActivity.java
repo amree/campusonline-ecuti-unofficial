@@ -22,7 +22,9 @@ import java.io.IOException;
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks,
                    SenaraiPermohonanPengesahanFragment.OnFragmentInteractionListener,
-                   PermohonanPengesahanFragment.OnFragmentInteractionListener {
+                   PermohonanPengesahanFragment.OnFragmentInteractionListener,
+                   CutiDiambilFragment.OnFragmentInteractionListener,
+                   AwardWangTunaiFragment.OnFragmentInteractionListener {
 
     private static final String TAG = "MainActivity";
 
@@ -63,8 +65,12 @@ public class MainActivity extends ActionBarActivity
                 fragment = new SenaraiPermohonanPengesahanFragment();
                 break;
             case 2:
+                fragment = new CutiDiambilFragment();
                 break;
             case 3:
+                fragment = new AwardWangTunaiFragment();
+                break;
+            case 4:
                 break;
         }
 
@@ -91,6 +97,10 @@ public class MainActivity extends ActionBarActivity
             case 4:
                 mTitle = getString(R.string.title_section4);
                 break;
+            case 5:
+                mTitle = getString(R.string.title_section5);
+                break;
+
         }
     }
 
@@ -128,6 +138,16 @@ public class MainActivity extends ActionBarActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCutiDiambilFragmentInteraction(String id) {
+
+    }
+
+    @Override
+    public void onAwardWangTunaiFragmentInteraction(String id) {
+
     }
 
     /**
