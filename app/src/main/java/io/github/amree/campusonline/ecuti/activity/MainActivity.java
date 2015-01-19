@@ -18,6 +18,7 @@ import android.support.v4.widget.DrawerLayout;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import io.github.amree.campusonline.ecuti.fragment.PermohonanCutiFragment;
 import io.github.amree.campusonline.ecuti.fragment.SenaraiPermohonanCutiFragment;
 import io.github.amree.campusonline.ecuti.pojo.DataApplication;
 import io.github.amree.campusonline.ecuti.R;
@@ -39,7 +40,8 @@ public class MainActivity extends ActionBarActivity
                    PermohonanPengesahanFragment.OnFragmentInteractionListener,
                    CutiDiambilFragment.OnFragmentInteractionListener,
                    NoDataFragment.OnFragmentInteractionListener,
-                   SenaraiPermohonanCutiFragment.OnFragmentInteractionListener {
+                   SenaraiPermohonanCutiFragment.OnFragmentInteractionListener,
+                   PermohonanCutiFragment.OnFragmentInteractionListener {
 
     private static final String TAG = "MainActivity";
 
@@ -167,6 +169,11 @@ public class MainActivity extends ActionBarActivity
 
     @Override
     public void onPermohonanCutiFragmentInteraction(String url) {
+
+    }
+
+    @Override
+    public void onPermohonanCutiFragmentInteraction() {
 
     }
 

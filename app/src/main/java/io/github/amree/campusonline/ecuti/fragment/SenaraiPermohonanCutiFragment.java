@@ -3,6 +3,8 @@ package io.github.amree.campusonline.ecuti.fragment;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.ListFragment;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -114,12 +116,15 @@ public class SenaraiPermohonanCutiFragment extends ListFragment {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_permohonan_baru) {
 
-            CharSequence text = "Fungsi ini sedang dibangunkan.";
-            int duration = Toast.LENGTH_SHORT;
+            Fragment fragment = null;
+            fragment = new PermohonanCutiFragment();
 
-            Toast toast = Toast.makeText(getActivity(), text, duration);
-            toast.show();
+            FragmentManager fragmentManager = getFragmentManager();
 
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, fragment)
+                    .addToBackStack("onSenaraiPermohonanCutiFragment")
+                    .commit();
         }
 
         return super.onOptionsItemSelected(item);
