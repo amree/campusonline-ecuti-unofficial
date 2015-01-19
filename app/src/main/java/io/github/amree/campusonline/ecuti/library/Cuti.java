@@ -546,7 +546,6 @@ public class Cuti {
                                     status = "LAIN-LAIN";
                             }
 
-                            Cuti.applications[x - 1][0] = status;
                             arr[x - 2].setStatus(status);
 
                             break;
