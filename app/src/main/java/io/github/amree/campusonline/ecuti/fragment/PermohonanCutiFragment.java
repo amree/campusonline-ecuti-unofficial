@@ -9,6 +9,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import io.github.amree.campusonline.ecuti.R;
 
@@ -49,7 +51,18 @@ public class PermohonanCutiFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_permohonan_cuti, container, false);
+        View v = inflater.inflate(R.layout.fragment_permohonan_cuti, container, false);
+
+        Spinner spinner = (Spinner) v.findViewById(R.id.jenisCutiSpinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
+                R.array.jenis_cuti_array, android.R.layout.simple_spinner_dropdown_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
+
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

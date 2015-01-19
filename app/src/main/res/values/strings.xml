@@ -23,5 +23,10 @@
     <string name="title_section4">Award Wang Tunai</string>
     <string name="title_section5">Staf Bercuti</string>
     <string name="action_permohonan_baru">Permohonan Baru</string>
+    <string name="button_send">Hantar</string>
+
+    <string-array name="jenis_cuti_array">
+        <item>Cuti Rehat</item>
+    </string-array>
 
 </resources>
