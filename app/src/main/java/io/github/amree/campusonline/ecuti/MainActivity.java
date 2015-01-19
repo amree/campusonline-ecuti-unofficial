@@ -2,7 +2,9 @@ package io.github.amree.campusonline.ecuti;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Parcelable;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -16,6 +18,9 @@ import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
+import io.github.amree.campusonline.ecuti.parcel.CutiDiambilParcel;
 
 
 public class MainActivity extends ActionBarActivity
@@ -23,7 +28,8 @@ public class MainActivity extends ActionBarActivity
                    SenaraiPermohonanPengesahanFragment.OnFragmentInteractionListener,
                    PermohonanPengesahanFragment.OnFragmentInteractionListener,
                    CutiDiambilFragment.OnFragmentInteractionListener,
-                   AwardWangTunaiFragment.OnFragmentInteractionListener {
+                   AwardWangTunaiFragment.OnFragmentInteractionListener,
+                   NoDataFragment.OnFragmentInteractionListener {
 
     private static final String TAG = "MainActivity";
 
@@ -64,7 +70,8 @@ public class MainActivity extends ActionBarActivity
                 fragment = new SenaraiPermohonanPengesahanFragment();
                 break;
             case 2:
-                fragment = new CutiDiambilFragment();
+//                fragment = new CutiDiambilFragment();
+                new LoadCutiDiambilTask().execute();
                 break;
             case 3:
                 fragment = new AwardWangTunaiFragment();
@@ -140,12 +147,17 @@ public class MainActivity extends ActionBarActivity
     }
 
     @Override
-    public void onCutiDiambilFragmentInteraction(String id) {
+    public void onCutiDiambilFragmentInteraction() {
 
     }
 
     @Override
     public void onAwardWangTunaiFragmentInteraction(String id) {
+
+    }
+
+    @Override
+    public void onNoDataFragmentInteraction() {
 
     }
 
@@ -254,6 +266,73 @@ public class MainActivity extends ActionBarActivity
             try {
 
                 this.dataApp = co.openPermohonananSah(params[0]);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+    }
+
+    private class LoadCutiDiambilTask extends AsyncTask<String, Void, Void> {
+
+        ProgressDialog progressDialog;
+        CutiDiambilParcel[] dataCutiDiambil;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            progressDialog = ProgressDialog.show(MainActivity.this, "", "Loading...");
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            progressDialog.dismiss();
+
+            Bundle args = new Bundle();
+
+            Fragment fragment = null;
+
+            if (this.dataCutiDiambil.length == 0) {
+
+                fragment = new NoDataFragment();
+
+            } else {
+
+                ArrayList<CutiDiambilParcel> dataList = new ArrayList<CutiDiambilParcel>();
+
+                for (CutiDiambilParcel cutiDiambil : this.dataCutiDiambil) {
+                    dataList.add(cutiDiambil);
+                }
+
+                args.putParcelableArrayList("data", dataList);
+
+                fragment = new CutiDiambilFragment();
+                fragment.setArguments(args);
+            }
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, fragment)
+                    .addToBackStack("onCutiDiambilFragment")
+                    .commit();
+
+        }
+
+        @Override
+        protected Void doInBackground(String... params) {
+
+            Cuti cuti = new Cuti();
+
+            try {
+
+                cuti.gotoCutiDiambil();
+                this.dataCutiDiambil = cuti.getCutiDiambil();
 
             } catch (IOException e) {
                 e.printStackTrace();
