@@ -212,7 +212,7 @@ public class MainActivity extends ActionBarActivity
 
     @Override
     public void onSenaraiPermohonanPengesahanFragmentInteraction(String url) {
-        new LoadPermohonanTask().execute(url);
+        new LoadPermohonanPengesahanTask().execute(url);
     }
 
     @Override
@@ -228,7 +228,7 @@ public class MainActivity extends ActionBarActivity
                 .commit();
     }
 
-    private class LoadPermohonanTask extends AsyncTask<String, Void, Void> {
+    private class LoadPermohonanPengesahanTask extends AsyncTask<String, Void, Void> {
 
         ProgressDialog progressDialog;
         DataApplication dataApp;
