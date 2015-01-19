@@ -18,13 +18,13 @@ import android.support.v4.widget.DrawerLayout;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import io.github.amree.campusonline.ecuti.fragment.SenaraiPermohonanCutiFragment;
 import io.github.amree.campusonline.ecuti.pojo.DataApplication;
 import io.github.amree.campusonline.ecuti.R;
 import io.github.amree.campusonline.ecuti.fragment.AwardWangTunaiFragment;
 import io.github.amree.campusonline.ecuti.fragment.CutiDiambilFragment;
 import io.github.amree.campusonline.ecuti.fragment.NavigationDrawerFragment;
 import io.github.amree.campusonline.ecuti.fragment.NoDataFragment;
-import io.github.amree.campusonline.ecuti.fragment.PermohonanCutiFragment;
 import io.github.amree.campusonline.ecuti.fragment.PermohonanPengesahanFragment;
 import io.github.amree.campusonline.ecuti.fragment.SenaraiPermohonanPengesahanFragment;
 import io.github.amree.campusonline.ecuti.library.Cuti;
@@ -39,7 +39,7 @@ public class MainActivity extends ActionBarActivity
                    PermohonanPengesahanFragment.OnFragmentInteractionListener,
                    CutiDiambilFragment.OnFragmentInteractionListener,
                    NoDataFragment.OnFragmentInteractionListener,
-                   PermohonanCutiFragment.OnFragmentInteractionListener {
+                   SenaraiPermohonanCutiFragment.OnFragmentInteractionListener {
 
     private static final String TAG = "MainActivity";
 
@@ -454,7 +454,7 @@ public class MainActivity extends ActionBarActivity
 
                 args.putParcelableArrayList("data", dataList);
 
-                fragment = new PermohonanCutiFragment();
+                fragment = new SenaraiPermohonanCutiFragment();
                 fragment.setArguments(args);
             }
 

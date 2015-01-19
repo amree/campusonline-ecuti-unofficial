@@ -20,13 +20,13 @@ import io.github.amree.campusonline.ecuti.parcel.PermohonanCutiParcel;
  * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
  * interface.
  */
-public class PermohonanCutiFragment extends ListFragment {
+public class SenaraiPermohonanCutiFragment extends ListFragment {
 
     private OnFragmentInteractionListener mListener;
 
     // TODO: Rename and change types of parameters
-    public static PermohonanCutiFragment newInstance() {
-        PermohonanCutiFragment fragment = new PermohonanCutiFragment();
+    public static SenaraiPermohonanCutiFragment newInstance() {
+        SenaraiPermohonanCutiFragment fragment = new SenaraiPermohonanCutiFragment();
 
         return fragment;
     }
@@ -35,7 +35,7 @@ public class PermohonanCutiFragment extends ListFragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public PermohonanCutiFragment() {
+    public SenaraiPermohonanCutiFragment() {
     }
 
     @Override
