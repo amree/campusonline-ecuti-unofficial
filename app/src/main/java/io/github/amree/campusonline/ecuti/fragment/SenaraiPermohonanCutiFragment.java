@@ -4,12 +4,16 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.ListFragment;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import io.github.amree.campusonline.ecuti.R;
 import io.github.amree.campusonline.ecuti.adapter.PermohonanCutiAdapter;
 import io.github.amree.campusonline.ecuti.parcel.PermohonanCutiParcel;
 
@@ -41,6 +45,8 @@ public class SenaraiPermohonanCutiFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setHasOptionsMenu(true);
 
         Bundle bundle = this.getArguments();
 
@@ -88,6 +94,35 @@ public class SenaraiPermohonanCutiFragment extends ListFragment {
             // fragment is attached to one) that an item has been selected.
             mListener.onPermohonanCutiFragmentInteraction("");
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        inflater.inflate(R.menu.menu_senarai_permohonan_cuti, menu);
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_permohonan_baru) {
+
+            CharSequence text = "Fungsi ini sedang dibangunkan.";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(getActivity(), text, duration);
+            toast.show();
+
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     /**
