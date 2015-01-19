@@ -1,4 +1,4 @@
-package io.github.amree.campusonline.ecuti;
+package io.github.amree.campusonline.ecuti.fragment;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -16,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import io.github.amree.campusonline.ecuti.R;
 
 
 /**

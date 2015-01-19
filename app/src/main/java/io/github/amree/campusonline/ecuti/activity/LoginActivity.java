@@ -1,4 +1,4 @@
-package io.github.amree.campusonline.ecuti;
+package io.github.amree.campusonline.ecuti.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -14,6 +14,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.IOException;
+
+import io.github.amree.campusonline.ecuti.R;
+import io.github.amree.campusonline.ecuti.library.Cuti;
+import io.github.amree.campusonline.ecuti.library.LoginException;
 
 
 // public class MainActivity extends ActionBarActivity {

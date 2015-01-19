@@ -1,4 +1,4 @@
-package io.github.amree.campusonline.ecuti;
+package io.github.amree.campusonline.ecuti.adapter;
 
 import java.util.ArrayList;
 
@@ -8,6 +8,9 @@ import android.view.LayoutInflater;
 import android.content.Context;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import io.github.amree.campusonline.ecuti.pojo.DataApplication;
+import io.github.amree.campusonline.ecuti.R;
 
 public class CustomAdapter extends BaseAdapter {
 
@@ -52,8 +55,8 @@ public class CustomAdapter extends BaseAdapter {
         DataApplication item = data.get(position);
 
         // Display the data item's properties
-        nameText.setText(item.nama);
-        dateTimeText.setText(item.masaMinta);
+        nameText.setText(item.getNama());
+        dateTimeText.setText(item.getMasaMinta());
 
         return view;
     }

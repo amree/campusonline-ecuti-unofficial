@@ -1,16 +1,17 @@
-package io.github.amree.campusonline.ecuti;
+package io.github.amree.campusonline.ecuti.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.ListFragment;
-import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+
+import io.github.amree.campusonline.ecuti.adapter.PermohonanCutiAdapter;
+import io.github.amree.campusonline.ecuti.parcel.PermohonanCutiParcel;
 
 /**
  * A fragment representing a list of Items.
@@ -19,54 +20,37 @@ import java.util.Date;
  * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
  * interface.
  */
-public class SenaraiPermohonanPengesahanFragment extends ListFragment {
+public class PermohonanCutiFragment extends ListFragment {
 
     private OnFragmentInteractionListener mListener;
-    private ArrayList<DataApplication> data;
+
+    // TODO: Rename and change types of parameters
+    public static PermohonanCutiFragment newInstance() {
+        PermohonanCutiFragment fragment = new PermohonanCutiFragment();
+
+        return fragment;
+    }
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public SenaraiPermohonanPengesahanFragment() {
+    public PermohonanCutiFragment() {
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        data = new ArrayList<DataApplication>();
+        Bundle bundle = this.getArguments();
 
-        for (int i = 0; i < Cuti.applications.length; i++) {
+        ArrayList<PermohonanCutiParcel> data = new ArrayList<PermohonanCutiParcel>();
 
-            DataApplication dataApplication = new DataApplication();
-
-            dataApplication.setStatus(Cuti.applications[i][0]);
-            dataApplication.setUrl(Cuti.applications[i][1]);
-            dataApplication.setNama(Cuti.applications[i][2]);
-            dataApplication.setJenis(Cuti.applications[i][3]);
-
-            try {
-
-                String input = Cuti.applications[i][4];
-                Date date = new SimpleDateFormat("d/M/yyyy h:m:s a").parse(input);
-                long milliseconds = date.getTime();
-
-                CharSequence timeAgo = DateUtils.getRelativeTimeSpanString(milliseconds,
-                                                    System.currentTimeMillis(),
-                                                    DateUtils.MINUTE_IN_MILLIS,
-                                                    DateUtils.FORMAT_NO_NOON);
-
-                dataApplication.setMasaMinta(timeAgo.toString());
-
-            } catch (ParseException e) {
-                dataApplication.setMasaMinta(Cuti.applications[i][4]);
-            }
-
-            data.add(dataApplication);
+        for (Parcelable parcel : bundle.getParcelableArrayList("data")) {
+            data.add((PermohonanCutiParcel) parcel);
         }
 
-        CustomAdapter adapter = new CustomAdapter(getActivity(), data);
+        PermohonanCutiAdapter adapter = new PermohonanCutiAdapter(getActivity(), data);
 
         setListAdapter(adapter);
     }
@@ -89,16 +73,20 @@ public class SenaraiPermohonanPengesahanFragment extends ListFragment {
         mListener = null;
     }
 
-
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
 
+        Toast toast = Toast.makeText(getActivity(),
+                "Fungsi ini sedang dibangunkan.",
+                Toast.LENGTH_SHORT);
+
+        toast.show();
+
         if (null != mListener) {
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
-            // mListener.onFragmentInteraction(DummyContent.ITEMS.get(position).id);
-            mListener.onSenaraiPermohonanPengesahanFragmentInteraction(data.get(position).url);
+            mListener.onPermohonanCutiFragmentInteraction("");
         }
     }
 
@@ -114,7 +102,7 @@ public class SenaraiPermohonanPengesahanFragment extends ListFragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onSenaraiPermohonanPengesahanFragmentInteraction(String url);
+        public void onPermohonanCutiFragmentInteraction(String url);
     }
 
 }

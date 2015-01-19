@@ -1,4 +1,4 @@
-package io.github.amree.campusonline.ecuti;
+package io.github.amree.campusonline.ecuti.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;

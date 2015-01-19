@@ -1,4 +1,4 @@
-package io.github.amree.campusonline.ecuti;
+package io.github.amree.campusonline.ecuti.activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -18,6 +18,16 @@ import android.support.v4.widget.DrawerLayout;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import io.github.amree.campusonline.ecuti.pojo.DataApplication;
+import io.github.amree.campusonline.ecuti.R;
+import io.github.amree.campusonline.ecuti.fragment.AwardWangTunaiFragment;
+import io.github.amree.campusonline.ecuti.fragment.CutiDiambilFragment;
+import io.github.amree.campusonline.ecuti.fragment.NavigationDrawerFragment;
+import io.github.amree.campusonline.ecuti.fragment.NoDataFragment;
+import io.github.amree.campusonline.ecuti.fragment.PermohonanCutiFragment;
+import io.github.amree.campusonline.ecuti.fragment.PermohonanPengesahanFragment;
+import io.github.amree.campusonline.ecuti.fragment.SenaraiPermohonanPengesahanFragment;
+import io.github.amree.campusonline.ecuti.library.Cuti;
 import io.github.amree.campusonline.ecuti.parcel.AwardWangTunaiParcel;
 import io.github.amree.campusonline.ecuti.parcel.CutiDiambilParcel;
 import io.github.amree.campusonline.ecuti.parcel.PermohonanCutiParcel;

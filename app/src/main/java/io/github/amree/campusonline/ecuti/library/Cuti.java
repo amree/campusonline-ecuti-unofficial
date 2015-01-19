@@ -1,4 +1,4 @@
-package io.github.amree.campusonline.ecuti;
+package io.github.amree.campusonline.ecuti.library;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -10,6 +10,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import io.github.amree.campusonline.ecuti.pojo.DataApplication;
 import io.github.amree.campusonline.ecuti.parcel.AwardWangTunaiParcel;
 import io.github.amree.campusonline.ecuti.parcel.CutiDiambilParcel;
 import io.github.amree.campusonline.ecuti.parcel.PermohonanCutiParcel;
