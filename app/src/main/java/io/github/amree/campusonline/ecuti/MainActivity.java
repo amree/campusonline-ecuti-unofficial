@@ -20,6 +20,7 @@ import android.support.v4.widget.DrawerLayout;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import io.github.amree.campusonline.ecuti.parcel.AwardWangTunaiParcel;
 import io.github.amree.campusonline.ecuti.parcel.CutiDiambilParcel;
 
 
@@ -28,7 +29,6 @@ public class MainActivity extends ActionBarActivity
                    SenaraiPermohonanPengesahanFragment.OnFragmentInteractionListener,
                    PermohonanPengesahanFragment.OnFragmentInteractionListener,
                    CutiDiambilFragment.OnFragmentInteractionListener,
-                   AwardWangTunaiFragment.OnFragmentInteractionListener,
                    NoDataFragment.OnFragmentInteractionListener {
 
     private static final String TAG = "MainActivity";
@@ -70,11 +70,10 @@ public class MainActivity extends ActionBarActivity
                 fragment = new SenaraiPermohonanPengesahanFragment();
                 break;
             case 2:
-//                fragment = new CutiDiambilFragment();
                 new LoadCutiDiambilTask().execute();
                 break;
             case 3:
-                fragment = new AwardWangTunaiFragment();
+                new LoadAwardWangTunaiTask().execute();
                 break;
             case 4:
                 break;
@@ -148,11 +147,6 @@ public class MainActivity extends ActionBarActivity
 
     @Override
     public void onCutiDiambilFragmentInteraction() {
-
-    }
-
-    @Override
-    public void onAwardWangTunaiFragmentInteraction(String id) {
 
     }
 
@@ -333,6 +327,73 @@ public class MainActivity extends ActionBarActivity
 
                 cuti.gotoCutiDiambil();
                 this.dataCutiDiambil = cuti.getCutiDiambil();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+    }
+
+    private class LoadAwardWangTunaiTask extends AsyncTask<String, Void, Void> {
+
+        ProgressDialog progressDialog;
+        AwardWangTunaiParcel[] dataAwardWangTunai;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            progressDialog = ProgressDialog.show(MainActivity.this, "", "Loading...");
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            progressDialog.dismiss();
+
+            Bundle args = new Bundle();
+
+            Fragment fragment = null;
+
+            if (this.dataAwardWangTunai.length == 0) {
+
+                fragment = new NoDataFragment();
+
+            } else {
+
+                ArrayList<AwardWangTunaiParcel> dataList = new ArrayList<AwardWangTunaiParcel>();
+
+                for (AwardWangTunaiParcel awardWangTunaiParcel : this.dataAwardWangTunai) {
+                    dataList.add(awardWangTunaiParcel);
+                }
+
+                args.putParcelableArrayList("data", dataList);
+
+                fragment = new AwardWangTunaiFragment();
+                fragment.setArguments(args);
+            }
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, fragment)
+                    .addToBackStack("onCutiDiambilFragment")
+                    .commit();
+
+        }
+
+        @Override
+        protected Void doInBackground(String... params) {
+
+            Cuti cuti = new Cuti();
+
+            try {
+
+                cuti.gotoAwardWangTunai();
+                this.dataAwardWangTunai = cuti.getAwardWangTunai();
 
             } catch (IOException e) {
                 e.printStackTrace();

@@ -10,6 +10,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import io.github.amree.campusonline.ecuti.parcel.AwardWangTunaiParcel;
 import io.github.amree.campusonline.ecuti.parcel.CutiDiambilParcel;
 
 public class Cuti {
@@ -23,16 +24,17 @@ public class Cuti {
     Document doc;
     Connection.Response res;
 
-    String coMainURL        = "http://campusonline.usm.my/smus/employee_i.asp?m=1&c=1";
-    String campusOnlineURL  = "https://campusonline.usm.my";
-    String cutiURL          = "http://e-cuti.usm.my/ecuti_v2/";
-    String realCutiURL      = "http://e-cuti.usm.my/ecuti_v2/default.asp";
-    String sahCutiURL       = "http://e-cuti.usm.my/ecuti_v2/default.asp?sec=P&fn=1";
-    String cutiDiambilURL   = "http://e-cuti.usm.my/ecuti_v2/default.asp?sec=D&semakan=pohon";
-    String mainCutiURL      = "";
-    String loginURL         = "";
-    String loginProcURL     = "";
-    String processURL       = "";
+    String coMainURL         = "http://campusonline.usm.my/smus/employee_i.asp?m=1&c=1";
+    String campusOnlineURL   = "https://campusonline.usm.my";
+    String cutiURL           = "http://e-cuti.usm.my/ecuti_v2/";
+    String realCutiURL       = "http://e-cuti.usm.my/ecuti_v2/default.asp";
+    String sahCutiURL        = "http://e-cuti.usm.my/ecuti_v2/default.asp?sec=P&fn=1";
+    String cutiDiambilURL    = "http://e-cuti.usm.my/ecuti_v2/default.asp?sec=D&semakan=pohon";
+    String awardWangTunaiURL = "http://e-cuti.usm.my/ecuti_v2/default.asp?sec=D&semakan=awti";
+    String mainCutiURL       = "";
+    String loginURL          = "";
+    String loginProcURL      = "";
+    String processURL        = "";
 
     public Cuti(String email, String password) {
         this.email = email;
@@ -243,6 +245,21 @@ public class Cuti {
         this.doc = this.res.parse();
     }
 
+    public void gotoAwardWangTunai() throws IOException {
+        this.res = Jsoup.connect(awardWangTunaiURL)
+                .timeout(0)
+                .cookies(cookies)
+                .followRedirects(false)
+                .method(Method.GET)
+                .execute();
+
+        System.out.println("Current URL: " + res.url());
+
+        setCookies();
+
+        this.doc = this.res.parse();
+    }
+
     private void setCookies() {
         // Get the cookies
         for (String key : this.res.cookies().keySet()) {
@@ -401,6 +418,59 @@ public class Cuti {
                 System.out.println("Tarikh: " + arr[i].getTarikh());
                 System.out.println("Jenis: " + arr[i].getJenis());
             }
+        }
+
+        return arr;
+    }
+
+    public AwardWangTunaiParcel[] getAwardWangTunai() {
+
+        AwardWangTunaiParcel[] arr = null;
+
+
+        Elements trElements = this.doc.select("table[bgcolor=#ffffff][cellpadding=1][cellspacing=1] tr");
+
+        System.out.println("Size: " + trElements.size());
+
+        System.out.println(trElements);
+
+        // Walaupun tiada rekod, tetap akan dua row
+        // jadi, kena periksa teks row terakhir
+        if (trElements.size() > 2) {
+
+            // Remember to skip the first two rows and the last row
+            // First row is the title
+            // Second row is the header
+            // Last row is the total count
+            arr = new AwardWangTunaiParcel[trElements.size() - 3];
+
+            for (int x = 2; x < trElements.size() - 1; x++) {
+                arr[x - 2] = new AwardWangTunaiParcel();
+
+                Elements tdElements = trElements.get(x).select("td");
+                for (int y = 0; y < tdElements.size(); y++) {
+
+                    switch (y) {
+                        case 1:
+                            arr[x - 2].setTahun(tdElements.get(y).text());
+
+                            break;
+                        case 2:
+                            // Tarikh
+                            arr[x - 2].setBilangan(tdElements.get(y).text());
+                            break;
+                    }
+                }
+            }
+
+            for (int i = 0; i < arr.length; i++) {
+                System.out.println("************* Award Wang Tunai");
+                System.out.println("Status: " + arr[i].getTahun());
+                System.out.println("Tarikh: " + arr[i].getBilangan());
+            }
+
+        } else {
+            arr = new AwardWangTunaiParcel[0];
         }
 
         return arr;
