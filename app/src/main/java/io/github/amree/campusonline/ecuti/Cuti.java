@@ -12,6 +12,7 @@ import org.jsoup.select.Elements;
 
 import io.github.amree.campusonline.ecuti.parcel.AwardWangTunaiParcel;
 import io.github.amree.campusonline.ecuti.parcel.CutiDiambilParcel;
+import io.github.amree.campusonline.ecuti.parcel.PermohonanCutiParcel;
 
 public class Cuti {
 
@@ -31,6 +32,7 @@ public class Cuti {
     String sahCutiURL        = "http://e-cuti.usm.my/ecuti_v2/default.asp?sec=P&fn=1";
     String cutiDiambilURL    = "http://e-cuti.usm.my/ecuti_v2/default.asp?sec=D&semakan=pohon";
     String awardWangTunaiURL = "http://e-cuti.usm.my/ecuti_v2/default.asp?sec=D&semakan=awti";
+    String permohonanCutiURL = "http://e-cuti.usm.my/ecuti_v2/default.asp?sec=D&semakan=pohon";
     String mainCutiURL       = "";
     String loginURL          = "";
     String loginProcURL      = "";
@@ -260,6 +262,21 @@ public class Cuti {
         this.doc = this.res.parse();
     }
 
+    public void gotoPermohonanCuti() throws IOException {
+        this.res = Jsoup.connect(permohonanCutiURL)
+                .timeout(0)
+                .cookies(cookies)
+                .followRedirects(false)
+                .method(Method.GET)
+                .execute();
+
+        System.out.println("Current URL: " + res.url());
+
+        setCookies();
+
+        this.doc = this.res.parse();
+    }
+
     private void setCookies() {
         // Get the cookies
         for (String key : this.res.cookies().keySet()) {
@@ -471,6 +488,85 @@ public class Cuti {
 
         } else {
             arr = new AwardWangTunaiParcel[0];
+        }
+
+        return arr;
+    }
+
+    public PermohonanCutiParcel[] getPermohonanCuti() {
+
+        PermohonanCutiParcel[] arr = null;
+
+
+        Elements trElements = this.doc.select("table.contacts tr");
+
+        // Walaupun tiada rekod, tetap akan dua row
+        // jadi, kena periksa teks row terakhir
+        if (trElements.size() == 2) {
+
+            arr = new PermohonanCutiParcel[0];
+
+        } else if (trElements.size() > 2) {
+
+            // Remember to skip the first two rows
+            // First row is the title
+            // Second row is the header
+            arr = new PermohonanCutiParcel[trElements.size() - 2];
+
+            for (int x = 2; x < trElements.size(); x++) {
+                arr[x - 2] = new PermohonanCutiParcel();
+
+                Elements tdElements = trElements.get(x).select("td");
+                for (int y = 0; y < tdElements.size(); y++) {
+
+                    switch (y) {
+                        case 1:
+                            // Status
+                            String imageFile = tdElements.get(y).select("img").attr("src");
+
+                            String status;
+                            switch (imageFile) {
+                                case "img/0.gif":
+                                    status = "Belum diproses kerani";
+                                    break;
+                                case "img/1.gif":
+                                    status = "Belum diproses oleh penyelia";
+                                    break;
+                                case "img/2.gif":
+                                    status = "Telah diluluskan";
+                                    break;
+                                case "img/3.gif":
+                                    status = "Tidak diluluskan";
+                                    break;
+                                case "img/4.gif":
+                                    status = "Dihantar semula untuk semakan";
+                                    break;
+                                default:
+                                    status = "LAIN-LAIN";
+                            }
+
+                            Cuti.applications[x - 1][0] = status;
+                            arr[x - 2].setStatus(status);
+
+                            break;
+                        case 2:
+                            // Tarikh
+                            arr[x - 2].setTarikh(tdElements.get(y).text());
+                            break;
+                        case 3:
+                            // Jenis
+                            arr[x - 2].setJenis(tdElements.get(y).text());
+                            break;
+                    }
+                }
+            }
+
+            for (int i = 0; i < arr.length; i++) {
+                System.out.println("************* Permohonan Cuti");
+                System.out.println("Status: " + arr[i].getStatus());
+                System.out.println("Tarikh: " + arr[i].getTarikh());
+                System.out.println("Jenis: " + arr[i].getJenis());
+            }
         }
 
         return arr;

@@ -2,9 +2,7 @@ package io.github.amree.campusonline.ecuti;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Parcelable;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -22,6 +20,7 @@ import java.util.ArrayList;
 
 import io.github.amree.campusonline.ecuti.parcel.AwardWangTunaiParcel;
 import io.github.amree.campusonline.ecuti.parcel.CutiDiambilParcel;
+import io.github.amree.campusonline.ecuti.parcel.PermohonanCutiParcel;
 
 
 public class MainActivity extends ActionBarActivity
@@ -29,7 +28,8 @@ public class MainActivity extends ActionBarActivity
                    SenaraiPermohonanPengesahanFragment.OnFragmentInteractionListener,
                    PermohonanPengesahanFragment.OnFragmentInteractionListener,
                    CutiDiambilFragment.OnFragmentInteractionListener,
-                   NoDataFragment.OnFragmentInteractionListener {
+                   NoDataFragment.OnFragmentInteractionListener,
+                   PermohonanCutiFragment.OnFragmentInteractionListener {
 
     private static final String TAG = "MainActivity";
 
@@ -64,7 +64,7 @@ public class MainActivity extends ActionBarActivity
         Fragment fragment = null;
         switch (position) {
             case 0:
-                fragment = PlaceholderFragment.newInstance(position + 1);
+                new LoadPermohonanCutiTask().execute();
                 break;
             case 1:
                 fragment = new SenaraiPermohonanPengesahanFragment();
@@ -152,6 +152,11 @@ public class MainActivity extends ActionBarActivity
 
     @Override
     public void onNoDataFragmentInteraction() {
+
+    }
+
+    @Override
+    public void onPermohonanCutiFragmentInteraction(String url) {
 
     }
 
@@ -394,6 +399,73 @@ public class MainActivity extends ActionBarActivity
 
                 cuti.gotoAwardWangTunai();
                 this.dataAwardWangTunai = cuti.getAwardWangTunai();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+    }
+
+    private class LoadPermohonanCutiTask extends AsyncTask<String, Void, Void> {
+
+        ProgressDialog progressDialog;
+        PermohonanCutiParcel[] permohonanCutiParcel;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            progressDialog = ProgressDialog.show(MainActivity.this, "", "Loading...");
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            progressDialog.dismiss();
+
+            Bundle args = new Bundle();
+
+            Fragment fragment = null;
+
+            if (this.permohonanCutiParcel.length == 0) {
+
+                fragment = new NoDataFragment();
+
+            } else {
+
+                ArrayList<PermohonanCutiParcel> dataList = new ArrayList<PermohonanCutiParcel>();
+
+                for (PermohonanCutiParcel permohonanCutiParcel : this.permohonanCutiParcel) {
+                    dataList.add(permohonanCutiParcel);
+                }
+
+                args.putParcelableArrayList("data", dataList);
+
+                fragment = new PermohonanCutiFragment();
+                fragment.setArguments(args);
+            }
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, fragment)
+                    .addToBackStack("onPermohonanCutiFragment")
+                    .commit();
+
+        }
+
+        @Override
+        protected Void doInBackground(String... params) {
+
+            Cuti cuti = new Cuti();
+
+            try {
+
+                cuti.gotoPermohonanCuti();
+                this.permohonanCutiParcel = cuti.getPermohonanCuti();
 
             } catch (IOException e) {
                 e.printStackTrace();
