@@ -7,13 +7,13 @@ import android.os.Parcelable;
 /**
  * Created by amree on 1/18/15.
  */
-public class PermohonanCutiParcel implements Parcelable {
+public class StatusPermohonanParcel implements Parcelable {
 
     String status;
     String tarikh;
     String jenis;
 
-    public PermohonanCutiParcel() {
+    public StatusPermohonanParcel() {
 
     }
 
@@ -41,7 +41,7 @@ public class PermohonanCutiParcel implements Parcelable {
         this.jenis = jenis;
     }
 
-    public PermohonanCutiParcel(Parcel in) {
+    public StatusPermohonanParcel(Parcel in) {
         status = in.readString();
         tarikh = in.readString();
         jenis = in.readString();

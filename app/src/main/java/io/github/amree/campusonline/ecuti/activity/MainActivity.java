@@ -19,7 +19,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import io.github.amree.campusonline.ecuti.fragment.PermohonanCutiFragment;
-import io.github.amree.campusonline.ecuti.fragment.SenaraiPermohonanCutiFragment;
+import io.github.amree.campusonline.ecuti.fragment.SenaraiStatusPermohonanFragment;
+import io.github.amree.campusonline.ecuti.parcel.StatusPermohonanParcel;
 import io.github.amree.campusonline.ecuti.pojo.DataApplication;
 import io.github.amree.campusonline.ecuti.R;
 import io.github.amree.campusonline.ecuti.fragment.AwardWangTunaiFragment;
@@ -31,7 +32,6 @@ import io.github.amree.campusonline.ecuti.fragment.SenaraiPermohonanPengesahanFr
 import io.github.amree.campusonline.ecuti.library.Cuti;
 import io.github.amree.campusonline.ecuti.parcel.AwardWangTunaiParcel;
 import io.github.amree.campusonline.ecuti.parcel.CutiDiambilParcel;
-import io.github.amree.campusonline.ecuti.parcel.PermohonanCutiParcel;
 
 
 public class MainActivity extends ActionBarActivity
@@ -40,7 +40,7 @@ public class MainActivity extends ActionBarActivity
                    PermohonanPengesahanFragment.OnFragmentInteractionListener,
                    CutiDiambilFragment.OnFragmentInteractionListener,
                    NoDataFragment.OnFragmentInteractionListener,
-                   SenaraiPermohonanCutiFragment.OnFragmentInteractionListener,
+                   SenaraiStatusPermohonanFragment.OnFragmentInteractionListener,
                    PermohonanCutiFragment.OnFragmentInteractionListener {
 
     private static final String TAG = "MainActivity";
@@ -76,7 +76,7 @@ public class MainActivity extends ActionBarActivity
         Fragment fragment = null;
         switch (position) {
             case 0:
-                new LoadPermohonanCutiTask().execute();
+                new LoadStatusPermohonanTask().execute();
                 break;
             case 1:
                 fragment = new SenaraiPermohonanPengesahanFragment();
@@ -174,7 +174,7 @@ public class MainActivity extends ActionBarActivity
 
     @Override
     public void onPermohonanCutiFragmentInteraction() {
-        new LoadPermohonanCutiTask().execute();
+        new LoadStatusPermohonanTask().execute();
     }
 
     /**
@@ -425,10 +425,10 @@ public class MainActivity extends ActionBarActivity
         }
     }
 
-    private class LoadPermohonanCutiTask extends AsyncTask<String, Void, Void> {
+    private class LoadStatusPermohonanTask extends AsyncTask<String, Void, Void> {
 
         ProgressDialog progressDialog;
-        PermohonanCutiParcel[] permohonanCutiParcel;
+        StatusPermohonanParcel[] statusPermohonanParcel;
 
         @Override
         protected void onPreExecute() {
@@ -447,21 +447,21 @@ public class MainActivity extends ActionBarActivity
 
             Fragment fragment = null;
 
-            if (this.permohonanCutiParcel.length == 0) {
+            if (this.statusPermohonanParcel.length == 0) {
 
                 fragment = new NoDataFragment();
 
             } else {
 
-                ArrayList<PermohonanCutiParcel> dataList = new ArrayList<PermohonanCutiParcel>();
+                ArrayList<StatusPermohonanParcel> dataList = new ArrayList<StatusPermohonanParcel>();
 
-                for (PermohonanCutiParcel permohonanCutiParcel : this.permohonanCutiParcel) {
-                    dataList.add(permohonanCutiParcel);
+                for (StatusPermohonanParcel statusPermohonanParcel : this.statusPermohonanParcel) {
+                    dataList.add(statusPermohonanParcel);
                 }
 
                 args.putParcelableArrayList("data", dataList);
 
-                fragment = new SenaraiPermohonanCutiFragment();
+                fragment = new SenaraiStatusPermohonanFragment();
                 fragment.setArguments(args);
             }
 
@@ -481,8 +481,8 @@ public class MainActivity extends ActionBarActivity
 
             try {
 
-                cuti.gotoCutiDiambil();
-                this.permohonanCutiParcel = cuti.getPermohonanCuti();
+                cuti.gotoSenaraiStatusPermohonan();
+                this.statusPermohonanParcel = cuti.getSenaraiStatusPermohonan();
 
             } catch (IOException e) {
                 e.printStackTrace();

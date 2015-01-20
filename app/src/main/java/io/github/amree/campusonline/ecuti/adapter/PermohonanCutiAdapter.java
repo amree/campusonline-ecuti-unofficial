@@ -10,8 +10,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import io.github.amree.campusonline.ecuti.R;
-import io.github.amree.campusonline.ecuti.parcel.CutiDiambilParcel;
-import io.github.amree.campusonline.ecuti.parcel.PermohonanCutiParcel;
+import io.github.amree.campusonline.ecuti.parcel.StatusPermohonanParcel;
 
 /**
  * Created by amree on 1/19/15.
@@ -19,10 +18,10 @@ import io.github.amree.campusonline.ecuti.parcel.PermohonanCutiParcel;
 public class PermohonanCutiAdapter extends BaseAdapter {
 
     Context context;
-    ArrayList<PermohonanCutiParcel> data;
+    ArrayList<StatusPermohonanParcel> data;
     private static LayoutInflater inflater = null;
 
-    public PermohonanCutiAdapter(Context context, ArrayList<PermohonanCutiParcel> data) {
+    public PermohonanCutiAdapter(Context context, ArrayList<StatusPermohonanParcel> data) {
         this.context = context;
         this.data = data;
         inflater = (LayoutInflater) context
@@ -57,7 +56,7 @@ public class PermohonanCutiAdapter extends BaseAdapter {
         TextView bodyText = (TextView) view.findViewById(R.id.bodyValue);
 
         // Get the data item
-        PermohonanCutiParcel item = data.get(position);
+        StatusPermohonanParcel item = data.get(position);
 
         // Display the data item's properties
         headerText.setText(item.getJenis());

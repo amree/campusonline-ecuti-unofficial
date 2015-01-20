@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 import io.github.amree.campusonline.ecuti.R;
 import io.github.amree.campusonline.ecuti.adapter.PermohonanCutiAdapter;
-import io.github.amree.campusonline.ecuti.parcel.PermohonanCutiParcel;
+import io.github.amree.campusonline.ecuti.parcel.StatusPermohonanParcel;
 
 /**
  * A fragment representing a list of Items.
@@ -26,13 +26,13 @@ import io.github.amree.campusonline.ecuti.parcel.PermohonanCutiParcel;
  * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
  * interface.
  */
-public class SenaraiPermohonanCutiFragment extends ListFragment {
+public class SenaraiStatusPermohonanFragment extends ListFragment {
 
     private OnFragmentInteractionListener mListener;
 
     // TODO: Rename and change types of parameters
-    public static SenaraiPermohonanCutiFragment newInstance() {
-        SenaraiPermohonanCutiFragment fragment = new SenaraiPermohonanCutiFragment();
+    public static SenaraiStatusPermohonanFragment newInstance() {
+        SenaraiStatusPermohonanFragment fragment = new SenaraiStatusPermohonanFragment();
 
         return fragment;
     }
@@ -41,7 +41,7 @@ public class SenaraiPermohonanCutiFragment extends ListFragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public SenaraiPermohonanCutiFragment() {
+    public SenaraiStatusPermohonanFragment() {
     }
 
     @Override
@@ -52,10 +52,10 @@ public class SenaraiPermohonanCutiFragment extends ListFragment {
 
         Bundle bundle = this.getArguments();
 
-        ArrayList<PermohonanCutiParcel> data = new ArrayList<PermohonanCutiParcel>();
+        ArrayList<StatusPermohonanParcel> data = new ArrayList<StatusPermohonanParcel>();
 
         for (Parcelable parcel : bundle.getParcelableArrayList("data")) {
-            data.add((PermohonanCutiParcel) parcel);
+            data.add((StatusPermohonanParcel) parcel);
         }
 
         PermohonanCutiAdapter adapter = new PermohonanCutiAdapter(getActivity(), data);

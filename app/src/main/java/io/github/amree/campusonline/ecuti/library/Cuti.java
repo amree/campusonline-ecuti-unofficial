@@ -10,10 +10,10 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import io.github.amree.campusonline.ecuti.parcel.StatusPermohonanParcel;
 import io.github.amree.campusonline.ecuti.pojo.DataApplication;
 import io.github.amree.campusonline.ecuti.parcel.AwardWangTunaiParcel;
 import io.github.amree.campusonline.ecuti.parcel.CutiDiambilParcel;
-import io.github.amree.campusonline.ecuti.parcel.PermohonanCutiParcel;
 import io.github.amree.campusonline.ecuti.pojo.PermohonanCutiBaru;
 
 public class Cuti {
@@ -32,9 +32,10 @@ public class Cuti {
     String cutiURL           = "http://e-cuti.usm.my/ecuti_v2/";
     String realCutiURL       = "http://e-cuti.usm.my/ecuti_v2/default.asp";
     String sahCutiURL        = "http://e-cuti.usm.my/ecuti_v2/default.asp?sec=P&fn=1";
-    String cutiDiambilURL    = "http://e-cuti.usm.my/ecuti_v2/default.asp?sec=D&semakan=pohon";
+    String cutiDiambilURL    = "http://e-cuti.usm.my/ecuti_v2/default.asp?sec=D&semakan=cuti";
     String awardWangTunaiURL = "http://e-cuti.usm.my/ecuti_v2/default.asp?sec=D&semakan=awti";
     String permohonanCutiURL = "http://e-cuti.usm.my/ecuti_v2/default.asp?sec=D&fn=1&tag=46";
+    String statusPermohonanURL = "http://e-cuti.usm.my/ecuti_v2/default.asp?sec=D&semakan=pohon";
     String mainCutiURL       = "";
     String loginURL          = "";
     String loginProcURL      = "";
@@ -236,6 +237,21 @@ public class Cuti {
 
     public void gotoCutiDiambil() throws IOException {
         this.res = Jsoup.connect(cutiDiambilURL)
+                .timeout(0)
+                .cookies(cookies)
+                .followRedirects(false)
+                .method(Method.GET)
+                .execute();
+
+        System.out.println("Current URL: " + res.url());
+
+        setCookies();
+
+        this.doc = this.res.parse();
+    }
+
+    public void gotoSenaraiStatusPermohonan() throws IOException {
+        this.res = Jsoup.connect(statusPermohonanURL)
                 .timeout(0)
                 .cookies(cookies)
                 .followRedirects(false)
@@ -495,9 +511,9 @@ public class Cuti {
         return arr;
     }
 
-    public PermohonanCutiParcel[] getPermohonanCuti() {
+    public StatusPermohonanParcel[] getSenaraiStatusPermohonan() {
 
-        PermohonanCutiParcel[] arr = null;
+        StatusPermohonanParcel[] arr = null;
 
 
         Elements trElements = this.doc.select("table.contacts tr");
@@ -506,17 +522,17 @@ public class Cuti {
         // jadi, kena periksa teks row terakhir
         if (trElements.size() == 2) {
 
-            arr = new PermohonanCutiParcel[0];
+            arr = new StatusPermohonanParcel[0];
 
         } else if (trElements.size() > 2) {
 
             // Remember to skip the first two rows
             // First row is the title
             // Second row is the header
-            arr = new PermohonanCutiParcel[trElements.size() - 2];
+            arr = new StatusPermohonanParcel[trElements.size() - 2];
 
             for (int x = 2; x < trElements.size(); x++) {
-                arr[x - 2] = new PermohonanCutiParcel();
+                arr[x - 2] = new StatusPermohonanParcel();
 
                 Elements tdElements = trElements.get(x).select("td");
                 for (int y = 0; y < tdElements.size(); y++) {
@@ -563,7 +579,7 @@ public class Cuti {
             }
 
             for (int i = 0; i < arr.length; i++) {
-                System.out.println("************* Permohonan Cuti");
+                System.out.println("************* Status Permohonan");
                 System.out.println("Status: " + arr[i].getStatus());
                 System.out.println("Tarikh: " + arr[i].getTarikh());
                 System.out.println("Jenis: " + arr[i].getJenis());
