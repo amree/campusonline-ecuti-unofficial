@@ -1,13 +1,16 @@
 package io.github.amree.campusonline.ecuti.fragment;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -80,6 +83,16 @@ public class PermohonanCutiFragment extends Fragment {
             }
         });
 
+        Button btnHantarPermohonan = (Button) v.findViewById(R.id.btnHantarPermohonan);
+
+        btnHantarPermohonan.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                new HantarPermohonanCutiTask().execute();
+            }
+        });
+
         return v;
     }
 
@@ -105,6 +118,38 @@ public class PermohonanCutiFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    private class HantarPermohonanCutiTask extends AsyncTask<String, Void, Void> {
+
+        ProgressDialog progressDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            progressDialog = ProgressDialog.show(getActivity(), "", "Sedang dihantar...");
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            progressDialog.dismiss();
+
+            if (null != mListener) {
+                // Notify the active callbacks interface (the activity, if the
+                // fragment is attached to one) that an item has been selected.
+                // mListener.onFragmentInteraction(DummyContent.ITEMS.get(position).id);
+                mListener.onPermohonanCutiFragmentInteraction();
+            }
+        }
+
+        @Override
+        protected Void doInBackground(String... params) {
+
+            return null;
+        }
     }
 
     /**
