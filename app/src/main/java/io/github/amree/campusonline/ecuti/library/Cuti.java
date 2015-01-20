@@ -33,7 +33,7 @@ public class Cuti {
     String sahCutiURL        = "http://e-cuti.usm.my/ecuti_v2/default.asp?sec=P&fn=1";
     String cutiDiambilURL    = "http://e-cuti.usm.my/ecuti_v2/default.asp?sec=D&semakan=pohon";
     String awardWangTunaiURL = "http://e-cuti.usm.my/ecuti_v2/default.asp?sec=D&semakan=awti";
-    String permohonanCutiURL = "http://e-cuti.usm.my/ecuti_v2/default.asp?sec=D&semakan=pohon";
+    String permohonanCutiURL = "http://e-cuti.usm.my/ecuti_v2/default.asp?sec=D&fn=1&tag=46";
     String mainCutiURL       = "";
     String loginURL          = "";
     String loginProcURL      = "";
@@ -248,8 +248,8 @@ public class Cuti {
         this.doc = this.res.parse();
     }
 
-    public void gotoAwardWangTunai() throws IOException {
-        this.res = Jsoup.connect(awardWangTunaiURL)
+    public void gotoPermohonanCuti() throws IOException {
+        this.res = Jsoup.connect(permohonanCutiURL)
                 .timeout(0)
                 .cookies(cookies)
                 .followRedirects(false)
@@ -263,8 +263,8 @@ public class Cuti {
         this.doc = this.res.parse();
     }
 
-    public void gotoPermohonanCuti() throws IOException {
-        this.res = Jsoup.connect(permohonanCutiURL)
+    public void gotoAwardWangTunai() throws IOException {
+        this.res = Jsoup.connect(awardWangTunaiURL)
                 .timeout(0)
                 .cookies(cookies)
                 .followRedirects(false)
@@ -674,6 +674,58 @@ public class Cuti {
             return true;
         } else {
             return false;
+        }
+    }
+
+    public void doHantarPermohonanCuti() throws IOException, PermohonanCutiException {
+
+        // Open page permohonan cuti
+        // Save semua field yang perlu
+        // Campur field tadi dengan field value dari user
+        // post ke url
+        // check dia redirect ke mana
+        // throw error kalau error
+
+        gotoPermohonanCuti();
+
+        Elements forms = this.doc.select("form input");
+
+        Map<String, String> formValues = new HashMap();
+
+        for (Element form : forms) {
+            if ((!form.val().trim().isEmpty()) && (form.attr("name") != "")) {
+                formValues.put(form.attr("name"), form.val());
+            }
+        }
+
+        // Set values from user
+//        formValues.put("txtAccountID", this.email);
+//        formValues.put("txtPassword", this.password);
+
+        String postURL = cutiURL + this.doc.select("form").attr("action");
+
+        this.res = Jsoup.connect(postURL)
+                .timeout(0)
+                .cookies(cookies)
+                .data(formValues)
+                .method(Connection.Method.POST)
+                .execute();
+
+        System.out.println("Current URL: " + this.res.url());
+
+        setCookies();
+
+        this.doc = this.res.parse();
+
+        if (this.doc.select("title").html().trim().equals("")) {
+
+            String errorMsg = this.doc.select("#table1 td").text().toString();
+
+            if (errorMsg.equalsIgnoreCase("")) {
+                errorMsg = "Masalah tidak dapat dikenalpasti. Sila cuba lagi.";
+            }
+
+            throw new PermohonanCutiException(errorMsg);
         }
     }
 

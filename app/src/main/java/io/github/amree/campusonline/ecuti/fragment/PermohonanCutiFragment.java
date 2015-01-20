@@ -1,7 +1,9 @@
 package io.github.amree.campusonline.ecuti.fragment;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,8 +15,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
+
+import java.io.IOException;
 
 import io.github.amree.campusonline.ecuti.R;
+import io.github.amree.campusonline.ecuti.library.Cuti;
+import io.github.amree.campusonline.ecuti.library.PermohonanCutiException;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -124,6 +131,8 @@ public class PermohonanCutiFragment extends Fragment {
 
         ProgressDialog progressDialog;
 
+        String errorMsg = null;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -137,16 +146,53 @@ public class PermohonanCutiFragment extends Fragment {
 
             progressDialog.dismiss();
 
-            if (null != mListener) {
-                // Notify the active callbacks interface (the activity, if the
-                // fragment is attached to one) that an item has been selected.
-                // mListener.onFragmentInteraction(DummyContent.ITEMS.get(position).id);
-                mListener.onPermohonanCutiFragmentInteraction();
+            if (this.errorMsg != null) {
+
+                new AlertDialog.Builder(getActivity())
+                        .setTitle("Ralat")
+                        .setMessage(this.errorMsg)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                return;
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            } else {
+
+                Toast toast = Toast.makeText(getActivity(),
+                        "Permohonan cuti telah dihantar.",
+                        Toast.LENGTH_SHORT);
+
+                toast.show();
+
+                if (null != mListener) {
+                    // Notify the active callbacks interface (the activity, if the
+                    // fragment is attached to one) that an item has been selected.
+                    // mListener.onFragmentInteraction(DummyContent.ITEMS.get(position).id);
+                    mListener.onPermohonanCutiFragmentInteraction();
+                }
             }
         }
 
         @Override
         protected Void doInBackground(String... params) {
+
+            Cuti cuti = new Cuti();
+
+            try {
+
+                cuti.doHantarPermohonanCuti();
+
+            } catch (PermohonanCutiException e) {
+
+                this.errorMsg = e.getMessage();
+
+            } catch (IOException e) {
+
+                e.printStackTrace();
+            }
 
             return null;
         }
@@ -166,5 +212,4 @@ public class PermohonanCutiFragment extends Fragment {
         // TODO: Update argument type and name
         public void onPermohonanCutiFragmentInteraction();
     }
-
 }

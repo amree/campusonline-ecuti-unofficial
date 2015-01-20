@@ -481,7 +481,7 @@ public class MainActivity extends ActionBarActivity
 
             try {
 
-                cuti.gotoPermohonanCuti();
+                cuti.gotoCutiDiambil();
                 this.permohonanCutiParcel = cuti.getPermohonanCuti();
 
             } catch (IOException e) {
