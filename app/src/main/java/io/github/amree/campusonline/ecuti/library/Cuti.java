@@ -14,6 +14,7 @@ import io.github.amree.campusonline.ecuti.pojo.DataApplication;
 import io.github.amree.campusonline.ecuti.parcel.AwardWangTunaiParcel;
 import io.github.amree.campusonline.ecuti.parcel.CutiDiambilParcel;
 import io.github.amree.campusonline.ecuti.parcel.PermohonanCutiParcel;
+import io.github.amree.campusonline.ecuti.pojo.PermohonanCutiBaru;
 
 public class Cuti {
 
@@ -677,7 +678,7 @@ public class Cuti {
         }
     }
 
-    public void doHantarPermohonanCuti() throws IOException, PermohonanCutiException {
+    public void doHantarPermohonanCuti(PermohonanCutiBaru cutiBaru) throws IOException, PermohonanCutiException {
 
         // Open page permohonan cuti
         // Save semua field yang perlu
@@ -693,14 +694,31 @@ public class Cuti {
         Map<String, String> formValues = new HashMap();
 
         for (Element form : forms) {
+
+            if ((form.attr("name").equalsIgnoreCase("R_StatusAmbilInsuran")) ||
+                    (form.attr("name").equalsIgnoreCase("R_Insuran")) ||
+                    (form.attr("name").equalsIgnoreCase("R_Notis"))) {
+
+                continue;
+            }
+
+
             if ((!form.val().trim().isEmpty()) && (form.attr("name") != "")) {
                 formValues.put(form.attr("name"), form.val());
             }
         }
 
+        // Other fields
+        String jenisCuti = this.doc.select("form select[name=D_JenisCuti] option[selected]").first().attr("value");
+        String negara = this.doc.select("form select[name=D_KodNegara] option[selected]").first().attr("value");
+        String alamat = this.doc.select("form textarea[name=S_AlamatCuti]").first().text();
+
         // Set values from user
-//        formValues.put("txtAccountID", this.email);
-//        formValues.put("txtPassword", this.password);
+        formValues.put("T_TkhMula[]", cutiBaru.getTarikhMula());
+        formValues.put("T_TkhTamat[]", cutiBaru.getTarikhAkhir());
+        formValues.put("D_JenisCuti", jenisCuti);
+        formValues.put("D_KodNegara", negara);
+        formValues.put("S_AlamatCuti", alamat);
 
         String postURL = cutiURL + this.doc.select("form").attr("action");
 
@@ -719,7 +737,7 @@ public class Cuti {
 
         if (this.doc.select("title").html().trim().equals("")) {
 
-            String errorMsg = this.doc.select("#table1 td").text().toString();
+            String errorMsg = this.doc.select("#table1 td font").first().text();
 
             if (errorMsg.equalsIgnoreCase("")) {
                 errorMsg = "Masalah tidak dapat dikenalpasti. Sila cuba lagi.";

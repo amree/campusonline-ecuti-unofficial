@@ -18,10 +18,15 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import io.github.amree.campusonline.ecuti.R;
 import io.github.amree.campusonline.ecuti.library.Cuti;
 import io.github.amree.campusonline.ecuti.library.PermohonanCutiException;
+import io.github.amree.campusonline.ecuti.pojo.PermohonanCutiBaru;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -73,8 +78,8 @@ public class PermohonanCutiFragment extends Fragment {
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
 
-        EditText editTextFromDate = (EditText) v.findViewById(R.id.editTextDari);
-        EditText editTextToDate = (EditText) v.findViewById(R.id.editTextHingga);
+        final EditText editTextFromDate = (EditText) v.findViewById(R.id.editTextDari);
+        final EditText editTextToDate = (EditText) v.findViewById(R.id.editTextHingga);
 
         editTextFromDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,7 +101,52 @@ public class PermohonanCutiFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-                new HantarPermohonanCutiTask().execute();
+
+                String validationError = "";
+
+                String dateFrom = editTextFromDate.getText().toString();
+                String dateTo   = editTextToDate.getText().toString();
+
+                Date fromDate = null;
+                Date toDate   = null;
+
+                if ((dateFrom.equalsIgnoreCase("")) || (dateTo.equalsIgnoreCase(""))) {
+                    validationError = "Pastikan anda mengisi tarikh mula dan akhir cuti anda.";
+                } else {
+
+                    DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+                    try {
+
+                        fromDate = dateFormat.parse(dateFrom);
+                        toDate   = dateFormat.parse(dateTo);
+
+                    } catch (ParseException e) {
+
+                        validationError = "Gagal dapatkan tarikh cuti.";
+                    }
+
+                    if (fromDate.after(toDate)) {
+                        validationError = "Pastikan tarikh akhir lebih dari tarikh mula.";
+                    }
+                }
+                
+                if (validationError.isEmpty()) {
+
+                    DateFormat dateOutputFormat = new SimpleDateFormat("MM-dd-yyyy");
+
+                    PermohonanCutiBaru cutiBaru = new PermohonanCutiBaru();
+
+                    cutiBaru.setTarikhMula(dateOutputFormat.format(fromDate));
+                    cutiBaru.setTarikhAkhir(dateOutputFormat.format(toDate));
+
+                    new HantarPermohonanCutiTask().execute(cutiBaru);
+
+                } else {
+
+                    Toast toast = Toast.makeText(getActivity(), validationError, Toast.LENGTH_SHORT);
+                    toast.show();
+                }
             }
         });
 
@@ -127,10 +177,9 @@ public class PermohonanCutiFragment extends Fragment {
         mListener = null;
     }
 
-    private class HantarPermohonanCutiTask extends AsyncTask<String, Void, Void> {
+    private class HantarPermohonanCutiTask extends AsyncTask<PermohonanCutiBaru, Void, Void> {
 
         ProgressDialog progressDialog;
-
         String errorMsg = null;
 
         @Override
@@ -177,13 +226,13 @@ public class PermohonanCutiFragment extends Fragment {
         }
 
         @Override
-        protected Void doInBackground(String... params) {
+        protected Void doInBackground(PermohonanCutiBaru... params) {
 
             Cuti cuti = new Cuti();
 
             try {
 
-                cuti.doHantarPermohonanCuti();
+                cuti.doHantarPermohonanCuti(params[0]);
 
             } catch (PermohonanCutiException e) {
 
