@@ -5,11 +5,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import io.github.amree.campusonline.ecuti.R;
@@ -45,6 +44,8 @@ public class PermohonanCutiFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
     }
 
     @Override
@@ -61,6 +62,23 @@ public class PermohonanCutiFragment extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
+
+        EditText editTextFromDate = (EditText) v.findViewById(R.id.editTextDari);
+        EditText editTextToDate = (EditText) v.findViewById(R.id.editTextHingga);
+
+        editTextFromDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerFragment((EditText) v).show(getFragmentManager(), "datePicker");
+            }
+        });
+
+        editTextToDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerFragment((EditText) v).show(getFragmentManager(), "datePicker");
+            }
+        });
 
         return v;
     }

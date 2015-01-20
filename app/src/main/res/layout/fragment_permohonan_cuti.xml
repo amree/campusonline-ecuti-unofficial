@@ -42,7 +42,8 @@
             android:layout_height="wrap_content"
             android:inputType="date"
             android:ems="10"
-            android:id="@+id/editText"
+            android:id="@+id/editTextDari"
+            android:focusableInTouchMode="false"
             android:layout_weight="1" />
 
     </LinearLayout>
@@ -65,7 +66,8 @@
             android:layout_height="wrap_content"
             android:inputType="date"
             android:ems="10"
-            android:id="@+id/editText2"
+            android:id="@+id/editTextHingga"
+            android:focusableInTouchMode="false"
             android:layout_weight="1" />
     </LinearLayout>
 
@@ -73,7 +75,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/button_send"
-        android:id="@+id/button2"
+        android:id="@+id/btnHantarPermohonan"
         android:layout_gravity="bottom" />
 
 </LinearLayout>
