@@ -60,8 +60,8 @@ public class CutiDiambilAdapter extends BaseAdapter {
 
         // Display the data item's properties
         headerText.setText(item.getJenis());
-        subHeaderText.setText(item.getStatus());
-        bodyText.setText(item.getTarikh());
+        subHeaderText.setText(item.getJumlah() + " hari");
+        bodyText.setText(item.getTarikhMula() + " - " + item.getTarikhAkhir());
 
         return view;
     }

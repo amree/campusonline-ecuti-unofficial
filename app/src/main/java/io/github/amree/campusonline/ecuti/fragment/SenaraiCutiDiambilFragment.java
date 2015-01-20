@@ -22,7 +22,7 @@ import io.github.amree.campusonline.ecuti.parcel.CutiDiambilParcel;
  * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
  * interface.
  */
-public class CutiDiambilFragment extends ListFragment {
+public class SenaraiCutiDiambilFragment extends ListFragment {
 
     private OnFragmentInteractionListener mListener;
 
@@ -30,7 +30,7 @@ public class CutiDiambilFragment extends ListFragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public CutiDiambilFragment() {
+    public SenaraiCutiDiambilFragment() {
     }
 
     @Override

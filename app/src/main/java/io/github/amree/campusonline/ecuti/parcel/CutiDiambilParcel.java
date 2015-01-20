@@ -9,28 +9,37 @@ import android.os.Parcelable;
  */
 public class CutiDiambilParcel implements Parcelable {
 
-    String status;
-    String tarikh;
+    String tarikhAkhir;
+    String tarikhMula;
     String jenis;
+    String jumlah;
 
     public CutiDiambilParcel() {
 
     }
 
-    public String getStatus() {
-        return status;
+    public String getJumlah() {
+        return jumlah;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setJumlah(String jumlah) {
+        this.jumlah = jumlah;
     }
 
-    public String getTarikh() {
-        return tarikh;
+    public String getTarikhAkhir() {
+        return tarikhAkhir;
     }
 
-    public void setTarikh(String tarikh) {
-        this.tarikh = tarikh;
+    public void setTarikhAkhir(String tarikhAkhir) {
+        this.tarikhAkhir = tarikhAkhir;
+    }
+
+    public String getTarikhMula() {
+        return tarikhMula;
+    }
+
+    public void setTarikhMula(String tarikhMula) {
+        this.tarikhMula = tarikhMula;
     }
 
     public String getJenis() {
@@ -42,9 +51,10 @@ public class CutiDiambilParcel implements Parcelable {
     }
 
     public CutiDiambilParcel(Parcel in) {
-        status = in.readString();
-        tarikh = in.readString();
+        tarikhAkhir = in.readString();
+        tarikhMula = in.readString();
         jenis = in.readString();
+        jumlah = in.readString();
     }
 
     @Override
@@ -54,9 +64,10 @@ public class CutiDiambilParcel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(status);
-        dest.writeString(tarikh);
+        dest.writeString(tarikhAkhir);
+        dest.writeString(tarikhMula);
         dest.writeString(jenis);
+        dest.writeString(jumlah);
     }
 
     @SuppressWarnings("unused")

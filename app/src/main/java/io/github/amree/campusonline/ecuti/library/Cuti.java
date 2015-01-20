@@ -235,7 +235,7 @@ public class Cuti {
         this.doc = this.res.parse();
     }
 
-    public void gotoCutiDiambil() throws IOException {
+    public void gotoSenaraiCutiDiambil() throws IOException {
         this.res = Jsoup.connect(cutiDiambilURL)
                 .timeout(0)
                 .cookies(cookies)
@@ -379,7 +379,7 @@ public class Cuti {
         }
     }
 
-    public CutiDiambilParcel[] getCutiDiambil() {
+    public CutiDiambilParcel[] getSenaraiCutiDiambil() {
 
         CutiDiambilParcel[] arr = null;
 
@@ -397,51 +397,34 @@ public class Cuti {
             // Remember to skip the first two rows
             // First row is the title
             // Second row is the header
-            arr = new CutiDiambilParcel[trElements.size() - 2];
+            // The last three rows are used for the summary
+            arr = new CutiDiambilParcel[trElements.size() - 5];
 
-            for (int x = 2; x < trElements.size(); x++) {
+            for (int x = 2; x < trElements.size() - 3; x++) {
                 arr[x - 2] = new CutiDiambilParcel();
 
                 Elements tdElements = trElements.get(x).select("td");
                 for (int y = 0; y < tdElements.size(); y++) {
 
+                    System.out.println(tdElements.get(y).text());
+
                     switch (y) {
                         case 1:
-                            // Status
-                            String imageFile = tdElements.get(y).select("img").attr("src");
-
-                            String status;
-                            switch (imageFile) {
-                                case "img/0.gif":
-                                    status = "Belum diproses kerani";
-                                    break;
-                                case "img/1.gif":
-                                    status = "Belum diproses oleh penyelia";
-                                    break;
-                                case "img/2.gif":
-                                    status = "Telah diluluskan";
-                                    break;
-                                case "img/3.gif":
-                                    status = "Tidak diluluskan";
-                                    break;
-                                case "img/4.gif":
-                                    status = "Dihantar semula untuk semakan";
-                                    break;
-                                default:
-                                    status = "LAIN-LAIN";
-                            }
-
-                            Cuti.applications[x - 1][0] = status;
-                            arr[x - 2].setStatus(status);
+                            // Tarikh Mula
+                            arr[x - 2].setTarikhMula(tdElements.get(y).text());
 
                             break;
                         case 2:
-                            // Tarikh
-                            arr[x - 2].setTarikh(tdElements.get(y).text());
+                            // Tarikh Akhir
+                            arr[x - 2].setTarikhAkhir(tdElements.get(y).text());
                             break;
                         case 3:
                             // Jenis
                             arr[x - 2].setJenis(tdElements.get(y).text());
+                            break;
+                        case 4:
+                            // Jumlah
+                            arr[x - 2].setJumlah(tdElements.get(y).text());
                             break;
                     }
                 }
@@ -449,8 +432,8 @@ public class Cuti {
 
             for (int i = 0; i < arr.length; i++) {
                 System.out.println("************* Cuti Diambil");
-                System.out.println("Status: " + arr[i].getStatus());
-                System.out.println("Tarikh: " + arr[i].getTarikh());
+                System.out.println("Status: " + arr[i].getTarikhAkhir());
+                System.out.println("Tarikh: " + arr[i].getTarikhMula());
                 System.out.println("Jenis: " + arr[i].getJenis());
             }
         }

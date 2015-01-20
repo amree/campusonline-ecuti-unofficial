@@ -19,12 +19,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import io.github.amree.campusonline.ecuti.fragment.PermohonanCutiFragment;
+import io.github.amree.campusonline.ecuti.fragment.SenaraiCutiDiambilFragment;
 import io.github.amree.campusonline.ecuti.fragment.SenaraiStatusPermohonanFragment;
 import io.github.amree.campusonline.ecuti.parcel.StatusPermohonanParcel;
 import io.github.amree.campusonline.ecuti.pojo.DataApplication;
 import io.github.amree.campusonline.ecuti.R;
 import io.github.amree.campusonline.ecuti.fragment.AwardWangTunaiFragment;
-import io.github.amree.campusonline.ecuti.fragment.CutiDiambilFragment;
 import io.github.amree.campusonline.ecuti.fragment.NavigationDrawerFragment;
 import io.github.amree.campusonline.ecuti.fragment.NoDataFragment;
 import io.github.amree.campusonline.ecuti.fragment.PermohonanPengesahanFragment;
@@ -38,7 +38,7 @@ public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks,
                    SenaraiPermohonanPengesahanFragment.OnFragmentInteractionListener,
                    PermohonanPengesahanFragment.OnFragmentInteractionListener,
-                   CutiDiambilFragment.OnFragmentInteractionListener,
+                   SenaraiCutiDiambilFragment.OnFragmentInteractionListener,
                    NoDataFragment.OnFragmentInteractionListener,
                    SenaraiStatusPermohonanFragment.OnFragmentInteractionListener,
                    PermohonanCutiFragment.OnFragmentInteractionListener {
@@ -82,7 +82,7 @@ public class MainActivity extends ActionBarActivity
                 fragment = new SenaraiPermohonanPengesahanFragment();
                 break;
             case 2:
-                new LoadCutiDiambilTask().execute();
+                new LoadSenaraiCutiDiambilTask().execute();
                 break;
             case 3:
                 new LoadAwardWangTunaiTask().execute();
@@ -291,7 +291,7 @@ public class MainActivity extends ActionBarActivity
         }
     }
 
-    private class LoadCutiDiambilTask extends AsyncTask<String, Void, Void> {
+    private class LoadSenaraiCutiDiambilTask extends AsyncTask<String, Void, Void> {
 
         ProgressDialog progressDialog;
         CutiDiambilParcel[] dataCutiDiambil;
@@ -327,7 +327,7 @@ public class MainActivity extends ActionBarActivity
 
                 args.putParcelableArrayList("data", dataList);
 
-                fragment = new CutiDiambilFragment();
+                fragment = new SenaraiCutiDiambilFragment();
                 fragment.setArguments(args);
             }
 
@@ -347,8 +347,8 @@ public class MainActivity extends ActionBarActivity
 
             try {
 
-                cuti.gotoCutiDiambil();
-                this.dataCutiDiambil = cuti.getCutiDiambil();
+                cuti.gotoSenaraiCutiDiambil();
+                this.dataCutiDiambil = cuti.getSenaraiCutiDiambil();
 
             } catch (IOException e) {
                 e.printStackTrace();
