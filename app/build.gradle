@@ -8,8 +8,8 @@ android {
         applicationId "io.github.amree.campusonline.ecuti"
         minSdkVersion 14
         targetSdkVersion 21
-        versionCode 5
-        versionName "1.5.0"
+        versionCode 6
+        versionName "1.5.1"
     }
     buildTypes {
         release {
