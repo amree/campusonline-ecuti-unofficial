@@ -1,0 +1,81 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:orientation="vertical">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Jenis cuti:"
+            android:id="@+id/textView21"
+            android:layout_weight="1" />
+
+        <Spinner
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/jenisCutiSpinner"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Tarikh mula:"
+            android:id="@+id/textView2"
+            android:layout_weight="1" />
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:ems="10"
+            android:id="@+id/editTextDari"
+            android:focusableInTouchMode="false"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Tarikh akhir:"
+            android:id="@+id/textView22"
+            android:layout_weight="1" />
+
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:ems="10"
+            android:id="@+id/editTextHingga"
+            android:focusableInTouchMode="false"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button_send"
+        android:id="@+id/btnHantarPermohonan"
+        android:layout_gravity="bottom" />
+
+</LinearLayout>

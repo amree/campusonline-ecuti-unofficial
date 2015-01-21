@@ -4,7 +4,10 @@ Memandangkan aplikasi eCuti CampusOnline dari Universiti Sains Malaysia tidak me
 
 Aplikasi ini tidak mempunyai akses secara terus kepada pangkalan data CampusOnline ataupun akses kepada Application Programming Interface (API). Ia menggunakan teknik *scraping* untuk mendapatkan data. Selain daripada itu, aplikasi ini jugak tidak menyimpan kata laluan anda di mana-mana. Jadi, ianya selamat untuk digunakan.
 
-Aplikasi ini dibangun menggunakan AndroidStudio. Anda sepatutnya boleh mencubanya sendiri tanpa sebarang masalah.
+Aplikasi ini dibangun menggunakan Android Studio. Anda sepatutnya boleh mencubanya sendiri tanpa sebarang masalah.
+
+Aplikasi ini boleh download di
+[https://play.google.com/store/apps/details?id=io.github.amree.campusonline.ecuti](https://play.google.com/store/apps/details?id=io.github.amree.campusonline.ecuti)
 
 ## Hubungi
 

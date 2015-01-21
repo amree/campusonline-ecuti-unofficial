@@ -1,4 +1,4 @@
-package io.github.amree.campusonline.ecuti;
+package io.github.amree.campusonline.ecuti.library;
 
 /**
  * Created by amree on 12/24/14.
@@ -6,7 +6,7 @@ package io.github.amree.campusonline.ecuti;
 //public class CustomException {
 //}
 
-class LoginException extends Exception {
+public class LoginException extends Exception {
     public LoginException(String message) {
         super(message);
     }

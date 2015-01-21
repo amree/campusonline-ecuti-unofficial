@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="io.github.amree.campusonline.ecuti.PermohonanPengesahanActivity">
     <item android:id="@+id/action_approve" android:title="@string/action_approve"
-        android:orderInCategory="100" app:showAsAction="never" />
+        android:orderInCategory="90" app:showAsAction="never" />
     <item android:id="@+id/action_reject" android:title="@string/action_reject"
-        android:orderInCategory="100" app:showAsAction="never" />
+        android:orderInCategory="91" app:showAsAction="never" />
     <item android:id="@+id/action_return" android:title="@string/action_return"
-        android:orderInCategory="100" app:showAsAction="never" />
+        android:orderInCategory="92" app:showAsAction="never" />
 </menu>

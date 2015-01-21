@@ -1,4 +1,4 @@
-package io.github.amree.campusonline.ecuti;
+package io.github.amree.campusonline.ecuti.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -8,14 +8,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.IOException;
+
+import io.github.amree.campusonline.ecuti.R;
+import io.github.amree.campusonline.ecuti.library.Cuti;
+import io.github.amree.campusonline.ecuti.library.LoginException;
 
 
 // public class MainActivity extends ActionBarActivity {
@@ -117,17 +119,15 @@ public class LoginActivity extends Activity {
         @Override
         protected Void doInBackground(String... params) {
 
-            ECuti eCuti = new ECuti(params[0], params[1]);
+            Cuti cuti = new Cuti(params[0], params[1]);
 
             try {
 
-                eCuti.gotoLogin();
-                eCuti.doLogin();
-                eCuti.gotoCuti();
-                eCuti.gotoSahCuti();
-                eCuti.setApplications();
+                cuti.gotoLogin();
+                cuti.doLogin();
+                cuti.gotoCuti();
 
-                Intent intent = new Intent(LoginActivity.this, SenaraiPermohonanPengesahanActivity.class);
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
 
             } catch (IOException e) {

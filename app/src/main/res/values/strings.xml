@@ -12,5 +12,21 @@
     <string name="login">Masuk</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="no_data">Tiada data</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
+    <string name="action_logout">Logout</string>
+    <string name="title_section1">Permohonan</string>
+    <string name="title_section2">Pengesahan</string>
+    <string name="title_section3">Cuti Diambil</string>
+    <string name="title_section4">Award Wang Tunai</string>
+    <string name="title_section5">Staf Bercuti</string>
+    <string name="action_permohonan_baru">Permohonan Baru</string>
+    <string name="button_send">Hantar</string>
+
+    <string-array name="jenis_cuti_array">
+        <item>Cuti Rehat</item>
+    </string-array>
 
 </resources>

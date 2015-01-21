@@ -1,4 +1,4 @@
-package io.github.amree.campusonline.ecuti;
+package io.github.amree.campusonline.ecuti.pojo;
 
 public class DataApplication {
 
