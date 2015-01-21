@@ -2,18 +2,15 @@ package io.github.amree.campusonline.ecuti.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.ListFragment;
-import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.ListView;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
-import io.github.amree.campusonline.ecuti.adapter.CustomAdapter;
-import io.github.amree.campusonline.ecuti.library.Cuti;
+import io.github.amree.campusonline.ecuti.adapter.PermohonanPengesahanAdapter;
+import io.github.amree.campusonline.ecuti.parcel.StatusPermohonanPengesahanParcel;
 import io.github.amree.campusonline.ecuti.pojo.DataApplication;
 
 /**
@@ -26,7 +23,7 @@ import io.github.amree.campusonline.ecuti.pojo.DataApplication;
 public class SenaraiPermohonanPengesahanFragment extends ListFragment {
 
     private OnFragmentInteractionListener mListener;
-    private ArrayList<DataApplication> data;
+    private ArrayList<StatusPermohonanPengesahanParcel> data;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -39,38 +36,17 @@ public class SenaraiPermohonanPengesahanFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        data = new ArrayList<DataApplication>();
+        setHasOptionsMenu(true);
 
-        for (int i = 0; i < Cuti.applications.length; i++) {
+        Bundle bundle = this.getArguments();
 
-            DataApplication dataApplication = new DataApplication();
+        data = new ArrayList<StatusPermohonanPengesahanParcel>();
 
-            dataApplication.setStatus(Cuti.applications[i][0]);
-            dataApplication.setUrl(Cuti.applications[i][1]);
-            dataApplication.setNama(Cuti.applications[i][2]);
-            dataApplication.setJenis(Cuti.applications[i][3]);
-
-            try {
-
-                String input = Cuti.applications[i][4];
-                Date date = new SimpleDateFormat("d/M/yyyy h:m:s a").parse(input);
-                long milliseconds = date.getTime();
-
-                CharSequence timeAgo = DateUtils.getRelativeTimeSpanString(milliseconds,
-                                                    System.currentTimeMillis(),
-                                                    DateUtils.MINUTE_IN_MILLIS,
-                                                    DateUtils.FORMAT_NO_NOON);
-
-                dataApplication.setMasaMinta(timeAgo.toString());
-
-            } catch (ParseException e) {
-                dataApplication.setMasaMinta(Cuti.applications[i][4]);
-            }
-
-            data.add(dataApplication);
+        for (Parcelable parcel : bundle.getParcelableArrayList("data")) {
+            data.add((StatusPermohonanPengesahanParcel) parcel);
         }
 
-        CustomAdapter adapter = new CustomAdapter(getActivity(), data);
+        PermohonanPengesahanAdapter adapter = new PermohonanPengesahanAdapter(getActivity(), data);
 
         setListAdapter(adapter);
     }

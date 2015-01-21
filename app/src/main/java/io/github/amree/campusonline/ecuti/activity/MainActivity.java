@@ -22,6 +22,7 @@ import io.github.amree.campusonline.ecuti.fragment.PermohonanCutiFragment;
 import io.github.amree.campusonline.ecuti.fragment.SenaraiCutiDiambilFragment;
 import io.github.amree.campusonline.ecuti.fragment.SenaraiStatusPermohonanFragment;
 import io.github.amree.campusonline.ecuti.parcel.StatusPermohonanParcel;
+import io.github.amree.campusonline.ecuti.parcel.StatusPermohonanPengesahanParcel;
 import io.github.amree.campusonline.ecuti.pojo.DataApplication;
 import io.github.amree.campusonline.ecuti.R;
 import io.github.amree.campusonline.ecuti.fragment.AwardWangTunaiFragment;
@@ -79,7 +80,8 @@ public class MainActivity extends ActionBarActivity
                 new LoadStatusPermohonanTask().execute();
                 break;
             case 1:
-                fragment = new SenaraiPermohonanPengesahanFragment();
+//                fragment = new SenaraiPermohonanPengesahanFragment();
+                new LoadSenaraiPermohonanPengesahan().execute();
                 break;
             case 2:
                 new LoadSenaraiCutiDiambilTask().execute();
@@ -483,6 +485,72 @@ public class MainActivity extends ActionBarActivity
 
                 cuti.gotoSenaraiStatusPermohonan();
                 this.statusPermohonanParcel = cuti.getSenaraiStatusPermohonan();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+    }
+
+    private class LoadSenaraiPermohonanPengesahan extends AsyncTask<String, Void, Void> {
+
+        ProgressDialog progressDialog;
+        StatusPermohonanPengesahanParcel[] statusPermohonanPengesahanParcel;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            progressDialog = ProgressDialog.show(MainActivity.this, "", "Loading...");
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            progressDialog.dismiss();
+
+            Bundle args = new Bundle();
+
+            Fragment fragment = null;
+
+            if (this.statusPermohonanPengesahanParcel.length == 0) {
+
+                fragment = new NoDataFragment();
+
+            } else {
+
+                ArrayList<StatusPermohonanPengesahanParcel> dataList = new ArrayList<StatusPermohonanPengesahanParcel>();
+
+                for (StatusPermohonanPengesahanParcel statusPermohonanPengesahanParcel : this.statusPermohonanPengesahanParcel) {
+                    dataList.add(statusPermohonanPengesahanParcel);
+                }
+
+                args.putParcelableArrayList("data", dataList);
+
+                fragment = new SenaraiPermohonanPengesahanFragment();
+                fragment.setArguments(args);
+            }
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, fragment)
+                    .addToBackStack("onPermohonanCutiFragment")
+                    .commit();
+        }
+
+        @Override
+        protected Void doInBackground(String... params) {
+
+            Cuti cuti = new Cuti();
+
+            try {
+
+                cuti.gotoSahCuti();
+                this.statusPermohonanPengesahanParcel = cuti.getSenaraiStatusPermohonanPengesahan();
 
             } catch (IOException e) {
                 e.printStackTrace();

@@ -126,8 +126,6 @@ public class LoginActivity extends Activity {
                 cuti.gotoLogin();
                 cuti.doLogin();
                 cuti.gotoCuti();
-                cuti.gotoSahCuti();
-                cuti.setApplications();
 
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);

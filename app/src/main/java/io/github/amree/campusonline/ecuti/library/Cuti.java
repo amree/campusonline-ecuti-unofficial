@@ -11,6 +11,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import io.github.amree.campusonline.ecuti.parcel.StatusPermohonanParcel;
+import io.github.amree.campusonline.ecuti.parcel.StatusPermohonanPengesahanParcel;
 import io.github.amree.campusonline.ecuti.pojo.DataApplication;
 import io.github.amree.campusonline.ecuti.parcel.AwardWangTunaiParcel;
 import io.github.amree.campusonline.ecuti.parcel.CutiDiambilParcel;
@@ -22,7 +23,6 @@ public class Cuti {
     String password;
 
     public static Map<String, String> cookies;
-    public static String[][] applications;
 
     Document doc;
     Connection.Response res;
@@ -307,7 +307,11 @@ public class Cuti {
         System.out.println("All cookies (STORED): " + this.cookies);
     }
 
-    public void setApplications() {
+//    public CutiDiambilParcel[] getSenaraiCutiDiambil() {
+
+    public StatusPermohonanPengesahanParcel[] getSenaraiStatusPermohonanPengesahan() {
+
+        StatusPermohonanPengesahanParcel[] arr = null;
 
         Elements trElements = this.doc.select("table.contacts tr");
 
@@ -315,15 +319,15 @@ public class Cuti {
         // jadi, kena periksa teks row terakhir
         if (trElements.last().text().equals("Tiada Rekod")) {
 
-            Cuti.applications = new String[0][5];
+            arr = new StatusPermohonanPengesahanParcel[0];
 
         } else {
 
             // Remember to skip the first row (first row == header)
-            Cuti.applications = new String[trElements.size() - 1][5];
+            arr = new StatusPermohonanPengesahanParcel[trElements.size() - 1];
 
             for (int x = 1; x < trElements.size(); x++) {
-                System.out.println(x + "-----");
+                arr[x - 1] = new StatusPermohonanPengesahanParcel();
 
                 Elements tdElements = trElements.get(x).select("td");
                 for (int y = 0; y < tdElements.size(); y++) {
@@ -336,48 +340,120 @@ public class Cuti {
                             String status;
                             switch (imageFile) {
                                 case "img/0.gif":
-                                    status = "KERANI";
+                                    status = "Belum diproses oleh kerani";
                                     break;
                                 case "img/1.gif":
-                                    status = "PENYELIA";
+                                    status = "Belum diproses oleh penyelia";
+                                    break;
+                                case "img/2.gif":
+                                    status = "Telah diluluskan";
+                                    break;
+                                case "img/3.gif":
+                                    status = "Tidak diluluskan";
                                     break;
                                 case "img/4.gif":
-                                    status = "SEMAKAN";
+                                    status = "Dihantar semula untuk semakan";
                                     break;
                                 default:
                                     status = "LAIN-LAIN";
                             }
 
-                            Cuti.applications[x - 1][0] = status;
+                            arr[x - 1].setStatus(status);
 
                             break;
                         case 2:
-                            // Link
-                            Cuti.applications[x - 1][1] = this.cutiURL + tdElements.get(y).select("a").attr("href");
+                            // URL
+                            arr[x - 1].setUrl(this.cutiURL + tdElements.get(y).select("a").attr("href"));
                             // Nama
-                            Cuti.applications[x - 1][2] = tdElements.get(y).text();
+                            arr[x - 1].setNama(tdElements.get(y).text());
                             break;
                         case 3:
                             // Jenis
-                            Cuti.applications[x - 1][3] = tdElements.get(y).text();
+                            arr[x - 1].setJenis(tdElements.get(y).text());
                             break;
                         case 4:
                             // Tarikh dan masa
-                            Cuti.applications[x - 1][4] = tdElements.get(y).text();
+                            arr[x - 1].setMasa(tdElements.get(y).text());
                             break;
                     }
                 }
             }
-
-            for (int i = 0; i < Cuti.applications.length; i++) {
-                System.out.println(i + "," + 0 + " -- " + Cuti.applications[i][0]);
-                System.out.println(i + "," + 1 + " -- " + Cuti.applications[i][1]);
-                System.out.println(i + "," + 2 + " -- " + Cuti.applications[i][2]);
-                System.out.println(i + "," + 3 + " -- " + Cuti.applications[i][3]);
-                System.out.println(i + "," + 4 + " -- " + Cuti.applications[i][4]);
-            }
         }
+
+        return arr;
     }
+
+//    public void setApplications() {
+//
+//        Elements trElements = this.doc.select("table.contacts tr");
+//
+//        // Walaupun tiada rekod, tetap akan dua row
+//        // jadi, kena periksa teks row terakhir
+//        if (trElements.last().text().equals("Tiada Rekod")) {
+//
+//            Cuti.applications = new String[0][5];
+//
+//        } else {
+//
+//            // Remember to skip the first row (first row == header)
+//            Cuti.applications = new String[trElements.size() - 1][5];
+//
+//            for (int x = 1; x < trElements.size(); x++) {
+//                System.out.println(x + "-----");
+//
+//                Elements tdElements = trElements.get(x).select("td");
+//                for (int y = 0; y < tdElements.size(); y++) {
+//
+//                    switch (y) {
+//                        case 1:
+//                            // Status
+//                            String imageFile = tdElements.get(y).select("img").attr("src");
+//
+//                            String status;
+//                            switch (imageFile) {
+//                                case "img/0.gif":
+//                                    status = "KERANI";
+//                                    break;
+//                                case "img/1.gif":
+//                                    status = "PENYELIA";
+//                                    break;
+//                                case "img/4.gif":
+//                                    status = "SEMAKAN";
+//                                    break;
+//                                default:
+//                                    status = "LAIN-LAIN";
+//                            }
+//
+//                            Cuti.applications[x - 1][0] = status;
+//
+//                            break;
+//                        case 2:
+//                            // Link
+//                            Cuti.applications[x - 1][1] = this.cutiURL + tdElements.get(y).select("a").attr("href");
+//                            // Nama
+//                            Cuti.applications[x - 1][2] = tdElements.get(y).text();
+//                            break;
+//                        case 3:
+//                            // Jenis
+//                            Cuti.applications[x - 1][3] = tdElements.get(y).text();
+//                            break;
+//                        case 4:
+//                            // Tarikh dan masa
+//                            Cuti.applications[x - 1][4] = tdElements.get(y).text();
+//                            break;
+//                    }
+//                }
+//            }
+//
+//            for (int i = 0; i < Cuti.applications.length; i++) {
+//                System.out.println(i + "," + 0 + " -- " + Cuti.applications[i][0]);
+//                System.out.println(i + "," + 1 + " -- " + Cuti.applications[i][1]);
+//                System.out.println(i + "," + 2 + " -- " + Cuti.applications[i][2]);
+//                System.out.println(i + "," + 3 + " -- " + Cuti.applications[i][3]);
+//                System.out.println(i + "," + 4 + " -- " + Cuti.applications[i][4]);
+//            }
+//        }
+//    }
 
     public CutiDiambilParcel[] getSenaraiCutiDiambil() {
 
@@ -572,10 +648,6 @@ public class Cuti {
         return arr;
     }
 
-    public String[][] getApplications() {
-        return Cuti.applications;
-    }
-
     public DataApplication openPermohonananSah(String url) throws IOException {
         // Buka page permohonan individu
         this.res = Jsoup.connect(url)
@@ -634,11 +706,6 @@ public class Cuti {
         dataApplication.setUrl(url);
 
         return dataApplication;
-    }
-
-    public void openSenaraiPermohonan() throws IOException {
-        gotoSahCuti();
-        setApplications();
     }
 
     public boolean doSahPermohonan(String url) throws IOException {
