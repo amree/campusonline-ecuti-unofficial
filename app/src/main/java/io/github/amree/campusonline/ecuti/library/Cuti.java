@@ -437,7 +437,7 @@ public class Cuti {
                 System.out.println("Tarikh: " + arr[i].getTarikhMula());
                 System.out.println("Jenis: " + arr[i].getJenis());
             }
-            
+
         } else {
 
             arr = new CutiDiambilParcel[0];

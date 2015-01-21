@@ -9,14 +9,21 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import io.github.amree.campusonline.ecuti.R;
+import io.github.amree.campusonline.ecuti.activity.MainActivity;
 
 
 public class NoDataFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    private int section;
+
     public NoDataFragment() {
         // Required empty public constructor
+    }
+
+    public NoDataFragment(int section) {
+        this.section = section;
     }
 
     @Override
@@ -34,6 +41,9 @@ public class NoDataFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+
+        ((MainActivity) activity).onSectionAttached(section);
+
         try {
             mListener = (OnFragmentInteractionListener) activity;
         } catch (ClassCastException e) {

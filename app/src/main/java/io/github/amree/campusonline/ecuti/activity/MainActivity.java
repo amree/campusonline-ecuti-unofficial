@@ -268,7 +268,7 @@ public class MainActivity extends ActionBarActivity
 
             if (this.dataCutiDiambil.length == 0) {
 
-                fragment = new NoDataFragment();
+                fragment = new NoDataFragment(3);
 
             } else {
 
@@ -335,7 +335,7 @@ public class MainActivity extends ActionBarActivity
 
             if (this.dataAwardWangTunai.length == 0) {
 
-                fragment = new NoDataFragment();
+                fragment = new NoDataFragment(4);
 
             } else {
 
@@ -402,7 +402,7 @@ public class MainActivity extends ActionBarActivity
 
             if (this.statusPermohonanParcel.length == 0) {
 
-                fragment = new NoDataFragment();
+                fragment = new NoDataFragment(1);
 
             } else {
 
@@ -469,7 +469,7 @@ public class MainActivity extends ActionBarActivity
 
             if (this.statusPermohonanPengesahanParcel.length == 0) {
 
-                fragment = new NoDataFragment();
+                fragment = new NoDataFragment(2);
 
             } else {
 
