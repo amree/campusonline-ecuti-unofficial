@@ -16,14 +16,8 @@ public class NoDataFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    private int section;
-
     public NoDataFragment() {
         // Required empty public constructor
-    }
-
-    public NoDataFragment(int section) {
-        this.section = section;
     }
 
     @Override
@@ -42,7 +36,7 @@ public class NoDataFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        ((MainActivity) activity).onSectionAttached(section);
+        ((MainActivity) activity).onSectionAttached(this.getArguments().getInt("sector"));
 
         try {
             mListener = (OnFragmentInteractionListener) activity;

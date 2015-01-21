@@ -120,6 +120,8 @@ public class MainActivity extends ActionBarActivity
             case 5:
                 mTitle = getString(R.string.title_section5);
                 break;
+            default:
+                mTitle = "E-Cuti (Unofficial)";
 
         }
     }
@@ -268,7 +270,10 @@ public class MainActivity extends ActionBarActivity
 
             if (this.dataCutiDiambil.length == 0) {
 
-                fragment = new NoDataFragment(3);
+                args.putInt("sector", 3);
+
+                fragment = new NoDataFragment();
+                fragment.setArguments(args);
 
             } else {
 
@@ -335,7 +340,10 @@ public class MainActivity extends ActionBarActivity
 
             if (this.dataAwardWangTunai.length == 0) {
 
-                fragment = new NoDataFragment(4);
+                args.putInt("sector", 4);
+
+                fragment = new NoDataFragment();
+                fragment.setArguments(args);
 
             } else {
 
@@ -402,7 +410,10 @@ public class MainActivity extends ActionBarActivity
 
             if (this.statusPermohonanParcel.length == 0) {
 
-                fragment = new NoDataFragment(1);
+                args.putInt("sector", 1);
+
+                fragment = new NoDataFragment();
+                fragment.setArguments(args);
 
             } else {
 
@@ -469,7 +480,10 @@ public class MainActivity extends ActionBarActivity
 
             if (this.statusPermohonanPengesahanParcel.length == 0) {
 
-                fragment = new NoDataFragment(2);
+                args.putInt("sector", 2);
+
+                fragment = new NoDataFragment();
+                fragment.setArguments(args);
 
             } else {
 
