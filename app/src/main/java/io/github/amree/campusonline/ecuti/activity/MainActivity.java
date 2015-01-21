@@ -80,7 +80,6 @@ public class MainActivity extends ActionBarActivity
                 new LoadStatusPermohonanTask().execute();
                 break;
             case 1:
-//                fragment = new SenaraiPermohonanPengesahanFragment();
                 new LoadSenaraiPermohonanPengesahan().execute();
                 break;
             case 2:
@@ -226,15 +225,7 @@ public class MainActivity extends ActionBarActivity
 
     @Override
     public void onPermohonanPengesahanFragmentInteraction() {
-        Fragment fragment = null;
-        fragment = new SenaraiPermohonanPengesahanFragment();
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, fragment)
-                .addToBackStack("onPermohonanPengesahanFragment")
-                .commit();
+        new LoadSenaraiPermohonanPengesahan().execute();
     }
 
     private class LoadPermohonanPengesahanTask extends AsyncTask<String, Void, Void> {

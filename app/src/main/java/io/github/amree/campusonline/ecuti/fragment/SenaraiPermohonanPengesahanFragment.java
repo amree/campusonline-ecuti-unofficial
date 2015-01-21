@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 import io.github.amree.campusonline.ecuti.adapter.PermohonanPengesahanAdapter;
 import io.github.amree.campusonline.ecuti.parcel.StatusPermohonanPengesahanParcel;
-import io.github.amree.campusonline.ecuti.pojo.DataApplication;
 
 /**
  * A fragment representing a list of Items.

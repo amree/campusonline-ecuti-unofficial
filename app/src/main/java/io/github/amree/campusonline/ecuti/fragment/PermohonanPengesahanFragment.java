@@ -17,7 +17,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+
 import io.github.amree.campusonline.ecuti.R;
+import io.github.amree.campusonline.ecuti.library.Cuti;
 
 
 /**
@@ -178,21 +181,15 @@ public class PermohonanPengesahanFragment extends Fragment {
 
         @Override
         protected Void doInBackground(String... params) {
-//            Cuti co = new Cuti();
-//
-//            try {
-//
-//                co.doSahPermohonan(params[0]);
-//
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
+            Cuti co = new Cuti();
 
-            System.out.println("Params: " + params[0]);
+            try {
 
-            // TODO:
-            // Need to mark everything is OK before returning
-            // Will effect onPostExecute
+                co.doSahPermohonan(params[0]);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
             return null;
         }
