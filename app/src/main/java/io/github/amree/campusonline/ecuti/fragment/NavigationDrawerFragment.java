@@ -252,7 +252,7 @@ public class NavigationDrawerFragment extends Fragment {
         }
 
         if (item.getItemId() == R.id.action_logout) {
-            Toast.makeText(getActivity(), "Logout action", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Fungsi ini sedang dibangunkan.", Toast.LENGTH_SHORT).show();
             return true;
         }
 
