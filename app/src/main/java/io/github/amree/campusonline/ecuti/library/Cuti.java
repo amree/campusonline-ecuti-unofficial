@@ -392,11 +392,7 @@ public class Cuti {
 
         // Walaupun tiada rekod, tetap akan dua row
         // jadi, kena periksa teks row terakhir
-        if (trElements.size() == 2) {
-
-            arr = new CutiDiambilParcel[0];
-
-        } else if (trElements.size() > 2) {
+        if (trElements.size() > 4) {
 
             // Remember to skip the first two rows
             // First row is the title
@@ -432,6 +428,7 @@ public class Cuti {
                             break;
                     }
                 }
+
             }
 
             for (int i = 0; i < arr.length; i++) {
@@ -440,6 +437,10 @@ public class Cuti {
                 System.out.println("Tarikh: " + arr[i].getTarikhMula());
                 System.out.println("Jenis: " + arr[i].getJenis());
             }
+            
+        } else {
+
+            arr = new CutiDiambilParcel[0];
         }
 
         return arr;
