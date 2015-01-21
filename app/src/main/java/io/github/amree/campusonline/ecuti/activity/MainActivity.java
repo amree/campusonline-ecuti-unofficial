@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -89,6 +90,7 @@ public class MainActivity extends ActionBarActivity
                 new LoadAwardWangTunaiTask().execute();
                 break;
             case 4:
+                Toast.makeText(this, "Fungsi ini sedang dibangunkan.", Toast.LENGTH_SHORT).show();
                 break;
         }
 
