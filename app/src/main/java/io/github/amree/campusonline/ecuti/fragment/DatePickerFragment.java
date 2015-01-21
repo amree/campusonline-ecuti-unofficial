@@ -17,7 +17,15 @@ public class DatePickerFragment extends DialogFragment
 
     public EditText editText;
 
-    public DatePickerFragment(EditText editText) {
+    public DatePickerFragment() {
+
+    }
+
+    public EditText getEditText() {
+        return editText;
+    }
+
+    public void setEditText(EditText editText) {
         this.editText = editText;
     }
 

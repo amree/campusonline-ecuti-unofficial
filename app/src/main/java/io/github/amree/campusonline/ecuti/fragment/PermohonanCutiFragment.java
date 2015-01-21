@@ -84,14 +84,18 @@ public class PermohonanCutiFragment extends Fragment {
         editTextFromDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerFragment((EditText) v).show(getFragmentManager(), "datePicker");
+                DatePickerFragment datePickerFragment = new DatePickerFragment();
+                datePickerFragment.setEditText((EditText) v);
+                datePickerFragment.show(getFragmentManager(), "datePicker");
             }
         });
 
         editTextToDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerFragment((EditText) v).show(getFragmentManager(), "datePicker");
+                DatePickerFragment datePickerFragment = new DatePickerFragment();
+                datePickerFragment.setEditText((EditText) v);
+                datePickerFragment.show(getFragmentManager(), "datePicker");
             }
         });
 
