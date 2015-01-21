@@ -7,6 +7,7 @@ import android.support.v4.app.ListFragment;
 
 import java.util.ArrayList;
 
+import io.github.amree.campusonline.ecuti.activity.MainActivity;
 import io.github.amree.campusonline.ecuti.adapter.AwardWangTunaiAdapter;
 import io.github.amree.campusonline.ecuti.parcel.AwardWangTunaiParcel;
 
@@ -43,6 +44,8 @@ public class AwardWangTunaiFragment extends ListFragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+
+        ((MainActivity) activity).onSectionAttached(4);
     }
 
     @Override

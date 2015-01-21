@@ -16,6 +16,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import io.github.amree.campusonline.ecuti.R;
+import io.github.amree.campusonline.ecuti.activity.MainActivity;
 import io.github.amree.campusonline.ecuti.adapter.PermohonanCutiAdapter;
 import io.github.amree.campusonline.ecuti.parcel.StatusPermohonanParcel;
 
@@ -67,6 +68,9 @@ public class SenaraiStatusPermohonanFragment extends ListFragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+
+        ((MainActivity) activity).onSectionAttached(1);
+
         try {
             mListener = (OnFragmentInteractionListener) activity;
         } catch (ClassCastException e) {

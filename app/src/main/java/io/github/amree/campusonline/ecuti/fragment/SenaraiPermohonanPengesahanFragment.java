@@ -1,14 +1,18 @@
 package io.github.amree.campusonline.ecuti.fragment;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.ListFragment;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import io.github.amree.campusonline.ecuti.activity.MainActivity;
 import io.github.amree.campusonline.ecuti.adapter.PermohonanPengesahanAdapter;
 import io.github.amree.campusonline.ecuti.parcel.StatusPermohonanPengesahanParcel;
 
@@ -50,10 +54,16 @@ public class SenaraiPermohonanPengesahanFragment extends ListFragment {
         setListAdapter(adapter);
     }
 
+    private android.support.v7.app.ActionBar getActionBar() {
+        return ((ActionBarActivity) getActivity()).getSupportActionBar();
+    }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+
+        ((MainActivity) activity).onSectionAttached(2);
+
         try {
             mListener = (OnFragmentInteractionListener) activity;
         } catch (ClassCastException e) {

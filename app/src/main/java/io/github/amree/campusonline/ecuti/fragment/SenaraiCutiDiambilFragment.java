@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import io.github.amree.campusonline.ecuti.activity.MainActivity;
 import io.github.amree.campusonline.ecuti.adapter.CutiDiambilAdapter;
 import io.github.amree.campusonline.ecuti.dummy.DummyContent;
 import io.github.amree.campusonline.ecuti.parcel.CutiDiambilParcel;
@@ -54,6 +55,9 @@ public class SenaraiCutiDiambilFragment extends ListFragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+
+        ((MainActivity) activity).onSectionAttached(3);
+
         try {
             mListener = (OnFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
