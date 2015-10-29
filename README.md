@@ -18,3 +18,7 @@ Aplikasi ini boleh download di
 Amat penting untuk saya tegaskan di sini, aplikasi ini **BUKAN APLIKASI RASMI** dari Universiti Sains Malaysia. Saya tidak akan bertanggungjawab jika berlaku sebarang masalah akibat dari penggunaan aplikasi ini.
 
 Walaubagaimanapun, saya akan cuba menaiktaraf dan membangunkan aplikasi ini selagi saya mampu (dari segi masa).
+
+# STATUS
+
+DEAD
